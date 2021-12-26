@@ -50,17 +50,16 @@ export class Incident extends AggregateRoot {
     );
   }
 
-  static create(payload: {
+  static open(payload: {
     id: IncidentId;
     description: IncidentDescription;
     impact: IncidentImpact;
-    status: IncidentStatus;
   }) {
     const incident = new Incident({
       id: payload.id,
       description: payload.description,
       impact: payload.impact,
-      status: payload.status,
+      status: new IncidentStatus(Status.OPEN),
       creationDate: new IncidentCreationDate(),
     });
 
