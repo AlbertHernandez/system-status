@@ -3,7 +3,7 @@ import Joi from "joi";
 import Koa from "koa";
 import { SchemasConfig } from "../middlewares/schema-validation.middleware";
 import { CreateIncidentCommand } from "../../../../contexts/backoffice/incidents/application/create/create-incident-command";
-import { IncidentImpact } from "../../../../contexts/backoffice/incidents/domain/incident-impact";
+import { Impact } from "../../../../contexts/backoffice/incidents/domain/incident-impact";
 import { uuid } from "../helpers/uuid";
 import { HttpResponse } from "../models/http-response";
 
@@ -13,7 +13,7 @@ export default class IncidentPutController extends Controller {
       body: Joi.object({
         description: Joi.string().required(),
         impact: Joi.string()
-          .valid(...Object.values(IncidentImpact))
+          .valid(...Object.values(Impact))
           .required(),
       }),
       params: Joi.object({
