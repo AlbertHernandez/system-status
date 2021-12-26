@@ -1,12 +1,12 @@
 <h1 align="center">🚀</h1>
-<h3 align="center">Typescript Basic Koa Skeleton</h3>
+<h3 align="center">System Status</h3>
 
 <p align="center">
-    <a href="https://github.com/AlbertHernandez/typescript-basic-koa-skeleton/actions/workflows/nodejs.yml?branch=main"><img src="https://github.com/AlbertHernandez/typescript-basic-koa-skeleton/actions/workflows/nodejs.yml/badge.svg?branch=main" alt="nodejs"/></a>
+    <a href="https://github.com/AlbertHernandez/system-status/actions/workflows/nodejs.yml?branch=main"><img src="https://github.com/AlbertHernandez/system-status/actions/workflows/nodejs.yml/badge.svg?branch=main" alt="nodejs"/></a>
 </p>
 
 <p align="center">
- This is a Skeleton for new basic koa typescript services
+ Application that helps companies to report on the status of their services.
 </p>
 
 ## Table of Contents
@@ -58,4 +58,4 @@ npm run lint:fix
 
 ## Contributing
 
-Contributions welcome! See the [Contributing Guide](https://github.com/AlbertHernandez/typescript-basic-koa-skeleton/blob/main/CONTRIBUTING.md).
+Contributions welcome! See the [Contributing Guide](https://github.com/AlbertHernandez/system-status/blob/main/CONTRIBUTING.md).

@@ -1,5 +1,5 @@
 {
-  "name": "typescript-basic-koa-skeleton",
+  "name": "system-status",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlbertHernandez/typescript-basic-koa-skeleton.git"
+    "url": "git+https://github.com/AlbertHernandez/system-status.git"
   },
   "keywords": [
     "typescript",
@@ -31,9 +31,9 @@
     "npm": ">=8.3.0"
   },
   "bugs": {
-    "url": "https://github.com/AlbertHernandez/typescript-basic-koa-skeleton/issues"
+    "url": "https://github.com/AlbertHernandez/system-status/issues"
   },
-  "homepage": "https://github.com/AlbertHernandez/typescript-basic-koa-skeleton#readme",
+  "homepage": "https://github.com/AlbertHernandez/system-status#readme",
   "devDependencies": {
     "@commitlint/cli": "^15.0.0",
     "@commitlint/config-conventional": "^15.0.0",
