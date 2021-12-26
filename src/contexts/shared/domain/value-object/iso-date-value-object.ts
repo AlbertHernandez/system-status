@@ -1,9 +1,11 @@
 import { DateValueObject } from "./date-value-object";
 
-export abstract class IsoDateValueObject extends DateValueObject {
-  constructor(value: string) {
+export class IsoDateValueObject extends DateValueObject {
+  constructor(value?: string) {
     super(value);
-    this.checkValueIsValidIsoDate(value);
+    if (value) {
+      this.checkValueIsValidIsoDate(value);
+    }
   }
 
   private checkValueIsValidIsoDate(value: string): void {
@@ -12,11 +14,19 @@ export abstract class IsoDateValueObject extends DateValueObject {
     }
   }
 
+  static now(): IsoDateValueObject {
+    return new IsoDateValueObject();
+  }
+
   private isIsoDate(value: string) {
     if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(value)) {
       return false;
     }
 
     return new Date(value).toISOString() === value;
+  }
+
+  toString(): string {
+    return this.value().toISOString();
   }
 }

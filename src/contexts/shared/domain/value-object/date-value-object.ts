@@ -1,9 +1,17 @@
 import { ValueObject } from "./value-object";
+import { InvalidArgumentError } from "../errors/invalid-argument-error";
 
-export abstract class DateValueObject extends ValueObject<Date> {
-  constructor(value: string) {
-    super(new Date(value));
-    this.checkValueIsValid(value);
+export class DateValueObject extends ValueObject<Date> {
+  constructor(value?: string) {
+    const date = value ? new Date(value) : new Date();
+    super(date);
+    if (value) {
+      this.checkValueIsValid(value);
+    }
+  }
+
+  static now(): DateValueObject {
+    return new DateValueObject();
   }
 
   private checkValueIsValid(value: string): void {
@@ -14,9 +22,9 @@ export abstract class DateValueObject extends ValueObject<Date> {
     }
   }
 
-  toString(): string {
-    return this.value().toISOString();
+  protected throwErrorForInvalidValue(value: string): void {
+    throw new InvalidArgumentError({
+      message: `<${this.constructor.name}> does not allow the value <${value}>`,
+    });
   }
-
-  protected abstract throwErrorForInvalidValue(value: string): void;
 }

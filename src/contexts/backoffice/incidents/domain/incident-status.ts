@@ -6,9 +6,23 @@ export enum Status {
   CLOSED = "CLOSED",
 }
 
+const validValues = Object.values(Status);
+
 export class IncidentStatus extends EnumValueObject<Status> {
   constructor(value: Status) {
-    super(value, Object.values(Status));
+    super(value, validValues);
+  }
+
+  static fromValue(value: string): IncidentStatus {
+    switch (value) {
+      case (Status.CLOSED, Status.OPEN):
+        return new IncidentStatus(value);
+      default:
+        throw new InvalidArgumentError({
+          message: `<${this.constructor.name}> does not allow the value <${value}>`,
+          meta: { validValues },
+        });
+    }
   }
 
   protected throwErrorForInvalidValue(value: unknown): void {
