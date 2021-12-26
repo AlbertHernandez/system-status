@@ -11,7 +11,7 @@ export const handleRequest =
   (controller: Class<Controller> & { schema?(): SchemasConfig }) =>
   async (ctx: Koa.Context) => {
     if (controller.schema) {
-      validateSchema(controller.schema(), ctx);
+      await validateSchema(controller.schema(), ctx);
     }
 
     const controllerName = controller.name;
