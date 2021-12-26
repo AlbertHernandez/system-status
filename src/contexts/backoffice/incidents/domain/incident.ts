@@ -83,7 +83,7 @@ export class Incident extends AggregateRoot {
     impact: string;
     status: string;
     creationDate: string;
-    closedDate?: string;
+    closedDate?: string | null;
   }): Incident {
     return new Incident({
       id: new IncidentId(plainData.id),
@@ -91,7 +91,9 @@ export class Incident extends AggregateRoot {
       impact: IncidentImpact.fromValue(plainData.impact),
       status: IncidentStatus.fromValue(plainData.status),
       creationDate: new IncidentCreationDate(plainData.creationDate),
-      closedDate: new IncidentClosedDate(plainData.closedDate),
+      closedDate: plainData.closedDate
+        ? new IncidentClosedDate(plainData.closedDate)
+        : null,
     });
   }
 
