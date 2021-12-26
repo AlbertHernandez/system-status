@@ -1,17 +1,13 @@
 import { ValueObject } from "./value-object";
 import { InvalidArgumentError } from "../errors/invalid-argument-error";
 
-export class DateValueObject extends ValueObject<Date> {
+export abstract class DateValueObject extends ValueObject<Date> {
   constructor(value?: string) {
     const date = value ? new Date(value) : new Date();
     super(date);
     if (value) {
       this.checkValueIsValid(value);
     }
-  }
-
-  static now(): DateValueObject {
-    return new DateValueObject();
   }
 
   private checkValueIsValid(value: string): void {

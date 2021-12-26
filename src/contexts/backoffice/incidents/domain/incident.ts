@@ -15,7 +15,7 @@ export class Incident extends AggregateRoot {
   readonly impact;
   status;
   readonly creationDate;
-  closedDate;
+  closedDate: Nullable<IncidentClosedDate>;
 
   constructor(dependencies: {
     id: IncidentId;
@@ -23,7 +23,7 @@ export class Incident extends AggregateRoot {
     impact: IncidentImpact;
     status: IncidentStatus;
     creationDate: IncidentCreationDate;
-    closedDate: Nullable<IncidentClosedDate>;
+    closedDate?: Nullable<IncidentClosedDate>;
   }) {
     super();
     this.id = dependencies.id;
@@ -31,12 +31,12 @@ export class Incident extends AggregateRoot {
     this.impact = dependencies.impact;
     this.status = dependencies.status;
     this.creationDate = dependencies.creationDate;
-    this.closedDate = dependencies.closedDate;
+    this.closedDate = dependencies.closedDate || null;
   }
 
   close() {
     this.status = new IncidentStatus(Status.CLOSED);
-    this.closedDate = IncidentClosedDate.now();
+    this.closedDate = new IncidentClosedDate();
 
     this.record(
       new IncidentClosedDomainEvent({
@@ -61,8 +61,7 @@ export class Incident extends AggregateRoot {
       description: payload.description,
       impact: payload.impact,
       status: payload.status,
-      creationDate: IncidentCreationDate.now(),
-      closedDate: null,
+      creationDate: new IncidentCreationDate(),
     });
 
     incident.record(

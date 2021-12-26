@@ -7,8 +7,4 @@ export class IncidentCreationDate extends IsoDateValueObject {
       message: `<${this.constructor.name}> does not allow the value ${value}`,
     });
   }
-
-  static now(): IncidentCreationDate {
-    return new IncidentCreationDate();
-  }
 }

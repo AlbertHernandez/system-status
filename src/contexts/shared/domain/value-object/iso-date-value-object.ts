@@ -1,6 +1,6 @@
 import { DateValueObject } from "./date-value-object";
 
-export class IsoDateValueObject extends DateValueObject {
+export abstract class IsoDateValueObject extends DateValueObject {
   constructor(value?: string) {
     super(value);
     if (value) {
@@ -12,10 +12,6 @@ export class IsoDateValueObject extends DateValueObject {
     if (!this.isIsoDate(value)) {
       this.throwErrorForInvalidValue(value);
     }
-  }
-
-  static now(): IsoDateValueObject {
-    return new IsoDateValueObject();
   }
 
   private isIsoDate(value: string) {
