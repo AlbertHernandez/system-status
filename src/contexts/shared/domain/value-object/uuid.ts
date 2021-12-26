@@ -1,9 +1,9 @@
 import { v4 } from "uuid";
 import validate from "uuid-validate";
 import { InvalidArgumentError } from "../errors/invalid-argument-error";
-import { ValueObject } from "./value-object";
+import { StringValueObject } from "./string-value-object";
 
-export class Uuid extends ValueObject<string> {
+export class Uuid extends StringValueObject {
   constructor(value: string) {
     super(value);
     this.ensureIsValidUuid(value);
