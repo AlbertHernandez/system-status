@@ -14,5 +14,9 @@ export abstract class DateValueObject extends ValueObject<Date> {
     }
   }
 
+  toString(): string {
+    return this.value().toISOString();
+  }
+
   protected abstract throwErrorForInvalidValue(value: string): void;
 }

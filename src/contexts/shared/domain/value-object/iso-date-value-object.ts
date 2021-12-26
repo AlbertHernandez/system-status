@@ -1,4 +1,3 @@
-import { ValueObject } from "./value-object";
 import { DateValueObject } from "./date-value-object";
 
 export abstract class IsoDateValueObject extends DateValueObject {
