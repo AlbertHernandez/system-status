@@ -15,7 +15,7 @@ export abstract class Controller {
     await this.commandBus.dispatch(command);
   }
 
-  abstract run(ctx: Koa.Context): Promise<HttpResponse | void>;
+  abstract run(ctx: Koa.Context): Promise<HttpResponse>;
 
   schema?(): SchemasConfig;
 }

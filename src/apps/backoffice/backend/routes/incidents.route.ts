@@ -6,7 +6,7 @@ import IncidentPutController from "../controllers/incident-put.controller";
 
 export const register = (router: Router) => {
   router.put(
-    "/incidents",
+    "/incidents/:id",
     authorization({ allowedUserTypes: [UserType.Api] }),
     handleRequest(IncidentPutController)
   );

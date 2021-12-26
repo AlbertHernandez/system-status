@@ -4,5 +4,5 @@
     "baseUrl": ".",
     "sourceMap": false
   },
-  "exclude": ["node_modules", "tests", "playground"]
+  "exclude": ["node_modules", "tests"]
 }

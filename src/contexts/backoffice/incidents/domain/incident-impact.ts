@@ -17,8 +17,14 @@ export class IncidentImpact extends EnumValueObject<Impact> {
 
   static fromValue(value: string): IncidentImpact {
     switch (value) {
-      case (Impact.NONE, Impact.MINOR, Impact.MAJOR, Impact.CRITICAL):
-        return new IncidentImpact(value);
+      case Impact.NONE:
+        return new IncidentImpact(Impact.NONE);
+      case Impact.MINOR:
+        return new IncidentImpact(Impact.MINOR);
+      case Impact.MAJOR:
+        return new IncidentImpact(Impact.MAJOR);
+      case Impact.CRITICAL:
+        return new IncidentImpact(Impact.CRITICAL);
       default:
         throw new InvalidArgumentError({
           message: `<${this.constructor.name}> does not allow the value <${value}>`,
@@ -29,7 +35,7 @@ export class IncidentImpact extends EnumValueObject<Impact> {
 
   protected throwErrorForInvalidValue(value: unknown): void {
     throw new InvalidArgumentError({
-      message: `<${this.constructor.name}> does not allow the value <${value}>`,
+      message: `<IncidentImpact.name> does not allow the value <${value}>`,
       meta: { validValues: this.validValues },
     });
   }

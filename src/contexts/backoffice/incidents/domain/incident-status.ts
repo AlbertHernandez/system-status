@@ -15,8 +15,10 @@ export class IncidentStatus extends EnumValueObject<Status> {
 
   static fromValue(value: string): IncidentStatus {
     switch (value) {
-      case (Status.CLOSED, Status.OPEN):
-        return new IncidentStatus(value);
+      case Status.CLOSED:
+        return new IncidentStatus(Status.CLOSED);
+      case Status.OPEN:
+        return new IncidentStatus(Status.OPEN);
       default:
         throw new InvalidArgumentError({
           message: `<${this.constructor.name}> does not allow the value <${value}>`,
@@ -27,7 +29,7 @@ export class IncidentStatus extends EnumValueObject<Status> {
 
   protected throwErrorForInvalidValue(value: unknown): void {
     throw new InvalidArgumentError({
-      message: `<${this.constructor.name}> does not allow the value <${value}>`,
+      message: `<IncidentStatus.name> does not allow the value <${value}>`,
       meta: { validValues: this.validValues },
     });
   }

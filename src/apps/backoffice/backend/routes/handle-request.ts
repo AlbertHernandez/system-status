@@ -19,17 +19,11 @@ export const handleRequest =
     const instance = scopedContainer.resolve<Controller>(controllerName);
     const response = await instance.run(ctx);
 
-    if (!response) {
-      return;
-    }
-
     if (response.data) {
       ctx.body = {
         data: response.data,
       };
     }
 
-    if (response.statusCode) {
-      ctx.status = response.statusCode;
-    }
+    ctx.status = response.statusCode;
   };

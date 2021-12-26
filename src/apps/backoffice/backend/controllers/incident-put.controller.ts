@@ -5,6 +5,7 @@ import { SchemasConfig } from "../middlewares/schema-validation.middleware";
 import { CreateIncidentCommand } from "../../../../contexts/backoffice/incidents/application/create/create-incident-command";
 import { IncidentImpact } from "../../../../contexts/backoffice/incidents/domain/incident-impact";
 import { uuid } from "../helpers/uuid";
+import { HttpResponse } from "../models/http-response";
 
 export default class IncidentPutController extends Controller {
   static schema(): SchemasConfig {
@@ -22,7 +23,7 @@ export default class IncidentPutController extends Controller {
   }
 
   async run(ctx: Koa.Context) {
-    const { description, impact } = ctx.query as {
+    const { description, impact } = ctx.request.body as {
       description: string;
       impact: string;
     };
@@ -35,5 +36,7 @@ export default class IncidentPutController extends Controller {
         impact,
       })
     );
+
+    return new HttpResponse();
   }
 }
