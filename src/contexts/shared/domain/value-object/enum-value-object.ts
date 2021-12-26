@@ -1,7 +1,7 @@
 import { ValueObject } from "./value-object";
 
 export abstract class EnumValueObject<T> extends ValueObject<T> {
-  constructor(value: T, public readonly validValues: T[]) {
+  constructor(value: T, readonly validValues: T[]) {
     super(value);
     this.checkValueIsValid(value);
   }

@@ -5,9 +5,10 @@
   "main": "src/index.js",
   "scripts": {
     "dev:backoffice:backend": "ts-node-dev --ignore-watch node_modules src/apps/backoffice/backend/start.ts | pino-pretty -c --messageKey message --translateTime SYS:standard",
-    "test": "npm run test:features",
+    "test": "npm run test:backoffice:backend:shared:unit && npm run test:features",
     "test:features": "npm run test:backoffice:backend:features",
     "test:backoffice:backend:features": "BACKOFFICE_NODE_ENV=test jest tests/apps/backoffice",
+    "test:backoffice:backend:shared:unit": "BACKOFFICE_NODE_ENV=test jest tests/contexts/shared",
     "prepare": "husky install",
     "lint": "eslint --ignore-path .gitignore . --ext .js,.ts",
     "lint:fix": "npm run lint -- --fix",
