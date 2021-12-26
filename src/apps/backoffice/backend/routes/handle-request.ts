@@ -18,6 +18,11 @@ export const handleRequest =
     const scopedContainer: Awilix.AwilixContainer = ctx.state.container;
     const instance = scopedContainer.resolve<Controller>(controllerName);
     const response = await instance.run(ctx);
+
+    if (!response) {
+      return;
+    }
+
     if (response.data) {
       ctx.body = {
         data: response.data,
