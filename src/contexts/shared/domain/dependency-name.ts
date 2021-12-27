@@ -1,0 +1,1 @@
+export type DependencyName = string;

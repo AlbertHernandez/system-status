@@ -1,8 +1,11 @@
 import { Command, CommandName } from "../../../domain/command";
 import { CommandHandler } from "../../../domain/command-handler";
 import { CommandNotRegisteredError } from "../../../domain/errors/command-not-registered-error";
-import { Instance } from "../../../domain/instance";
-import { ScopeHandler, classToInstanceName } from "../../dependency-injection";
+import { DependencyName } from "../../../domain/dependency-name";
+import {
+  instanceToDependencyName,
+  ScopeHandler,
+} from "../../dependency-injection";
 
 export class CommandHandlersInformation {
   private readonly scopeHandler;
@@ -18,13 +21,13 @@ export class CommandHandlersInformation {
 
   private formatHandlers(
     commandHandlers: Array<CommandHandler<Command>>
-  ): Map<CommandName, Instance> {
+  ): Map<CommandName, DependencyName> {
     const handlersMap = new Map();
 
     commandHandlers.forEach((commandHandler) => {
       handlersMap.set(
         commandHandler.subscribedTo().COMMAND_NAME,
-        classToInstanceName(commandHandler)
+        instanceToDependencyName(commandHandler)
       );
     });
 
