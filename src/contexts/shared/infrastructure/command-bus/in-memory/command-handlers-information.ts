@@ -6,6 +6,7 @@ import {
   instanceToDependencyName,
   ScopeHandler,
 } from "../../dependency-injection";
+import { Logger } from "../../../domain/logger";
 
 export class CommandHandlersInformation {
   private readonly scopeHandler;
@@ -45,10 +46,15 @@ export class CommandHandlersInformation {
 
     const childContainer = this.scopeHandler.createScope({
       scopeInfo: {
-        commandName: command.commandName,
         commandId: command.commandId,
-        occurredOn: command.occurredOn.toISOString(),
       },
+    });
+
+    const logger = childContainer.resolve<Logger>("logger");
+
+    logger.debug({
+      message: "Processing command",
+      context: command.getDetails(),
     });
 
     return childContainer.resolve(commandHandlerClassName);

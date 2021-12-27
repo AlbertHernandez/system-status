@@ -20,6 +20,15 @@ export abstract class Command {
     this.attributes = dependencies.attributes;
     this.commandName = dependencies.commandName;
   }
+
+  getDetails() {
+    return {
+      commandId: this.commandId,
+      occurredOn: this.occurredOn,
+      commandName: this.commandName,
+      attributes: this.attributes,
+    };
+  }
 }
 
 export type CommandClass = {
