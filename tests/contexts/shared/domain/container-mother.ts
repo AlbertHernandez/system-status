@@ -1,7 +1,7 @@
 import {
   Container,
   DependencyInjection,
-} from "../../../../src/contexts/shared/infrastructure/dependency-injection/dependency-injection";
+} from "../../../../src/contexts/shared/infrastructure/dependency-injection";
 
 export class ContainerMother {
   static create(): Container {

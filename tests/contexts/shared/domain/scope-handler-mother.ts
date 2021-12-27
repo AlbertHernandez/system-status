@@ -1,6 +1,8 @@
-import { ScopeHandler } from "../../../../src/contexts/shared/infrastructure/dependency-injection/scope-handler";
+import {
+  Container,
+  ScopeHandler,
+} from "../../../../src/contexts/shared/infrastructure/dependency-injection";
 import { ContainerMother } from "./container-mother";
-import { Container } from "../../../../src/contexts/shared/infrastructure/dependency-injection/dependency-injection";
 
 export class ScopeHandlerMother {
   static create(): ScopeHandler {
