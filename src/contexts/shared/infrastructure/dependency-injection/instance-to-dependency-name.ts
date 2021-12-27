@@ -1,12 +1,13 @@
 import { DependencyName } from "../../domain/dependency-name";
 import { toCamelCase } from "../to-camel-case";
+import { Instance } from "../../domain/instance";
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-const getClassName = (instance: Object) => {
+const getClassName = (instance: Instance) => {
   return instance.constructor.name;
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export const instanceToDependencyName = (instance: Object): DependencyName => {
+export const instanceToDependencyName = (
+  instance: Instance
+): DependencyName => {
   return toCamelCase(getClassName(instance));
 };
