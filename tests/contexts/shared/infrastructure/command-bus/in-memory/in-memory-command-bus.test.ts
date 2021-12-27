@@ -6,7 +6,6 @@ import { InMemoryCommandBus } from "../../../../../../src/contexts/shared/infras
 import { LoggerMother } from "../../../domain/logger-mother";
 import { ScopeHandlerMother } from "../../../domain/scope-handler-mother";
 import { ContainerMother } from "../../../domain/container-mother";
-import { DependencyInjection } from "../../../../../../src/contexts/shared/infrastructure/dependency-injection/dependency-injection";
 
 const logger = LoggerMother.create();
 
@@ -68,11 +67,7 @@ describe("InMemoryCommandBus", () => {
   });
 
   it("accepts a command with handler", async () => {
-    const container = ContainerMother.create();
-
-    container.register({
-      myCommandHandler: DependencyInjection.toolBox().asClass(MyCommandHandler),
-    });
+    const container = ContainerMother.withClasses([MyCommandHandler]);
 
     const scopeHandler = ScopeHandlerMother.createWithContainer(container);
     const handledCommand = new HandledCommand();
