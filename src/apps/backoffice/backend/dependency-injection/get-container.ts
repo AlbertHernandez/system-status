@@ -1,5 +1,8 @@
 import glob from "glob";
-import { Container, DependencyInjection } from "./dependency-injection";
+import {
+  Container,
+  DependencyInjection,
+} from "../../../../contexts/shared/infrastructure/dependency-injection";
 
 const registerDependencies = (container: Container) => {
   const routes = glob.sync(__dirname + "/**/*.dependency.*");

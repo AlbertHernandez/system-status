@@ -1,5 +1,6 @@
 import Koa from "koa";
-import { DependencyInjection } from "../dependency-injection/dependency-injection";
+import { DependencyInjection } from "../../../../contexts/shared/infrastructure/dependency-injection";
+import { container } from "../dependency-injection/container";
 import { RequestContext } from "../models/request-context";
 
 export const configureRequestScope = async (
@@ -11,6 +12,7 @@ export const configureRequestScope = async (
   });
 
   const scopeContainer = DependencyInjection.createScope({
+    container,
     scopeInfo: requestContext.toPrimitives(),
   });
 

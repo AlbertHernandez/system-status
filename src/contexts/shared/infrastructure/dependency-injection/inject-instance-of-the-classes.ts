@@ -1,4 +1,4 @@
-import { Class } from "../../../../contexts/shared/domain/class";
+import { Class } from "../../domain/class";
 import camelcase from "camelcase";
 import { Container, DependencyInjection } from "./dependency-injection";
 

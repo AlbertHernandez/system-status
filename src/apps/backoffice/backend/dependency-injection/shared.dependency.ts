@@ -4,10 +4,12 @@ import { config } from "../../../../contexts/backoffice/shared/infrastructure/co
 import { CreateIncidentCommandHandler } from "../../../../contexts/backoffice/incidents/application/create/create-incident-command-handler";
 import { CommandHandlersInformation } from "../../../../contexts/shared/infrastructure/command-bus/in-memory/command-handlers-information";
 import { InMemoryCommandBus } from "../../../../contexts/shared/infrastructure/command-bus/in-memory/in-memory-command-bus";
-import { injectInstanceOfTheClasses } from "./inject-instance-of-the-classes";
-import { Container, DependencyInjection } from "./dependency-injection";
-import { ScopeHandler } from "./scope-handler";
-import { asClass } from "awilix";
+import { injectInstanceOfTheClasses } from "../../../../contexts/shared/infrastructure/dependency-injection/inject-instance-of-the-classes";
+import {
+  Container,
+  DependencyInjection,
+  ScopeHandler,
+} from "../../../../contexts/shared/infrastructure/dependency-injection";
 
 export const register = (container: Container) => {
   container.register({
@@ -21,7 +23,7 @@ export const register = (container: Container) => {
         };
       }),
     errorHandler: DependencyInjection.toolBox().asClass(ErrorHandler),
-    scopeHandler: asClass(ScopeHandler),
+    scopeHandler: DependencyInjection.toolBox().asClass(ScopeHandler),
     commandHandlers: injectInstanceOfTheClasses([CreateIncidentCommandHandler]),
     commandHandlersInformation: DependencyInjection.toolBox().asClass(
       CommandHandlersInformation

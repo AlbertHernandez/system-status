@@ -5,7 +5,7 @@ import {
   SchemasConfig,
   validateSchema,
 } from "../middlewares/schema-validation.middleware";
-import { Container } from "../dependency-injection/dependency-injection";
+import { Container } from "../../../../contexts/shared/infrastructure/dependency-injection/dependency-injection";
 
 export const handleRequest =
   (controller: Class<Controller> & { schema?(): SchemasConfig }) =>

@@ -2,8 +2,7 @@ import { Command, CommandName } from "../../../domain/command";
 import { CommandHandler } from "../../../domain/command-handler";
 import { CommandNotRegisteredError } from "../../../domain/errors/command-not-registered-error";
 import { Instance } from "../../../domain/instance";
-import { ScopeHandler } from "../../../../../apps/backoffice/backend/dependency-injection/scope-handler";
-import { classToInstanceName } from "../../../../../apps/backoffice/backend/dependency-injection/class-to-instance-name";
+import { ScopeHandler, classToInstanceName } from "../../dependency-injection";
 
 export class CommandHandlersInformation {
   private readonly scopeHandler;

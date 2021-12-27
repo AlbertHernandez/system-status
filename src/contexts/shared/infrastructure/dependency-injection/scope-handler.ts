@@ -1,7 +1,7 @@
 import * as awilix from "awilix";
-import { Logger } from "../../../../contexts/shared/domain/logger";
-import { Nullable } from "../../../../contexts/Shared/domain/Nullable";
-import { ErrorHandler } from "../../../../contexts/shared/infrastructure/error-handler";
+import { Logger } from "../../domain/logger";
+import { Nullable } from "../../domain/nullable";
+import { ErrorHandler } from "../error-handler";
 import { Container } from "./dependency-injection";
 
 export class ScopeHandler {

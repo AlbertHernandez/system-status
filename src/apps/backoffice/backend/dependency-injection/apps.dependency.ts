@@ -1,5 +1,8 @@
 import glob from "glob";
-import { Container, DependencyInjection } from "./dependency-injection";
+import {
+  Container,
+  DependencyInjection,
+} from "../../../../contexts/shared/infrastructure/dependency-injection";
 
 const registerController = (routePath: string, container: Container) => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires

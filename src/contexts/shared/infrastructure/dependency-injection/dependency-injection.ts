@@ -1,8 +1,6 @@
 import * as awilix from "awilix";
-import { getContainer } from "./get-container";
-import { Logger } from "../../../../contexts/shared/domain/logger";
-import { ErrorHandler } from "../../../../contexts/shared/infrastructure/error-handler";
-import { classToInstanceName } from "./class-to-instance-name";
+import { Logger } from "../../domain/logger";
+import { ErrorHandler } from "../error-handler";
 
 export type Container = awilix.AwilixContainer;
 
@@ -19,18 +17,22 @@ export class DependencyInjection {
 
   static createScope(
     dependencies: {
+      container?: Container;
       scopeInfo?: Record<string, unknown>;
     } = {}
   ): Container {
-    const scope = getContainer().createScope();
+    const { container = DependencyInjection.createContainer(), scopeInfo } =
+      dependencies;
 
-    if (!dependencies.scopeInfo) {
+    const scope = container.createScope();
+
+    if (!scopeInfo) {
       return scope;
     }
 
     const logger = scope.resolve<Logger>("logger");
 
-    const scopedLogger = logger.child(dependencies.scopeInfo);
+    const scopedLogger = logger.child(scopeInfo);
 
     const errorHandler = new ErrorHandler({
       logger: scopedLogger,
@@ -42,20 +44,5 @@ export class DependencyInjection {
     });
 
     return scope;
-  }
-
-  static resolveInstanceForClass(
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    classToResolve: Object,
-    options: {
-      parentContainer?: Container;
-    }
-  ) {
-    const instanceName = classToInstanceName(classToResolve);
-    if (options.parentContainer) {
-      return options.parentContainer.resolve(instanceName);
-    }
-
-    return getContainer().resolve(instanceName);
   }
 }

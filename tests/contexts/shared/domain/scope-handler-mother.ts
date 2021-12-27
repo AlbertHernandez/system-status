@@ -1,6 +1,6 @@
-import { ScopeHandler } from "../../../../src/apps/backoffice/backend/dependency-injection/scope-handler";
+import { ScopeHandler } from "../../../../src/contexts/shared/infrastructure/dependency-injection/scope-handler";
 import { ContainerMother } from "./container-mother";
-import { Container } from "../../../../src/apps/backoffice/backend/dependency-injection/dependency-injection";
+import { Container } from "../../../../src/contexts/shared/infrastructure/dependency-injection/dependency-injection";
 
 export class ScopeHandlerMother {
   static create(): ScopeHandler {

@@ -6,7 +6,7 @@ import { InMemoryCommandBus } from "../../../../../../src/contexts/shared/infras
 import { LoggerMother } from "../../../domain/logger-mother";
 import { ScopeHandlerMother } from "../../../domain/scope-handler-mother";
 import { ContainerMother } from "../../../domain/container-mother";
-import { DependencyInjection } from "../../../../../../src/apps/backoffice/backend/dependency-injection/dependency-injection";
+import { DependencyInjection } from "../../../../../../src/contexts/shared/infrastructure/dependency-injection/dependency-injection";
 
 const logger = LoggerMother.create();
 
