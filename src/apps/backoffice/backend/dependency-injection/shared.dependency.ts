@@ -2,7 +2,6 @@ import { PinoLogger } from "../../../../contexts/shared/infrastructure/pino-logg
 import { ErrorHandler } from "../../../../contexts/shared/infrastructure/error-handler";
 import { config } from "../../../../contexts/backoffice/shared/infrastructure/config";
 import { CreateIncidentCommandHandler } from "../../../../contexts/backoffice/incidents/application/create/create-incident-command-handler";
-import { CommandHandlersInformation } from "../../../../contexts/shared/infrastructure/command-bus/in-memory/command-handlers-information";
 import { InMemoryCommandBus } from "../../../../contexts/shared/infrastructure/command-bus/in-memory/in-memory-command-bus";
 import { injectInstanceOfTheClasses } from "../../../../contexts/shared/infrastructure/dependency-injection/inject-instance-of-the-classes";
 import {
@@ -23,9 +22,6 @@ export const register = (container: Container) => {
     errorHandler: DependencyInjection.toolBox.asClass(ErrorHandler),
     scopeHandler: DependencyInjection.toolBox.asClass(ScopeHandler),
     commandHandlers: injectInstanceOfTheClasses([CreateIncidentCommandHandler]),
-    commandHandlersInformation: DependencyInjection.toolBox.asClass(
-      CommandHandlersInformation
-    ),
     commandBus: DependencyInjection.toolBox
       .asClass(InMemoryCommandBus)
       .singleton(),

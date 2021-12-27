@@ -1,7 +1,6 @@
 import { Command } from "../../../../../../src/contexts/shared/domain/command";
 import { CommandHandler } from "../../../../../../src/contexts/shared/domain/command-handler";
 import { CommandNotRegisteredError } from "../../../../../../src/contexts/shared/domain/errors/command-not-registered-error";
-import { CommandHandlersInformation } from "../../../../../../src/contexts/shared/infrastructure/command-bus/in-memory/command-handlers-information";
 import { InMemoryCommandBus } from "../../../../../../src/contexts/shared/infrastructure/command-bus/in-memory/in-memory-command-bus";
 import { LoggerMother } from "../../../domain/logger-mother";
 import { ScopeHandlerMother } from "../../../domain/scope-handler-mother";
@@ -44,11 +43,10 @@ describe("InMemoryCommandBus", () => {
   it("throws an error if dispatches a command without handler", async () => {
     const scopeHandler = ScopeHandlerMother.create();
     const unhandledCommand = new UnhandledCommand();
-    const commandHandlersInformation = new CommandHandlersInformation({
-      scopeHandler,
+    const commandBus = new InMemoryCommandBus({
       commandHandlers: [],
+      scopeHandler,
     });
-    const commandBus = new InMemoryCommandBus({ commandHandlersInformation });
 
     let exception = null;
 
@@ -74,11 +72,11 @@ describe("InMemoryCommandBus", () => {
     const scopeHandler = ScopeHandlerMother.createWithContainer(container);
     const handledCommand = new HandledCommand();
     const myCommandHandler = new MyCommandHandler();
-    const commandHandlersInformation = new CommandHandlersInformation({
+
+    const commandBus = new InMemoryCommandBus({
       scopeHandler,
       commandHandlers: [myCommandHandler],
     });
-    const commandBus = new InMemoryCommandBus({ commandHandlersInformation });
 
     await commandBus.dispatch(handledCommand);
   });
