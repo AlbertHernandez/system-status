@@ -4,19 +4,30 @@ import { CommandNotRegisteredError } from "../../../../../../src/contexts/shared
 import { CommandHandlersInformation } from "../../../../../../src/contexts/shared/infrastructure/command-bus/in-memory/command-handlers-information";
 import { InMemoryCommandBus } from "../../../../../../src/contexts/shared/infrastructure/command-bus/in-memory/in-memory-command-bus";
 import { LoggerMother } from "../../../domain/logger-mother";
+import { ScopeHandlerMother } from "../../../domain/scope-handler-mother";
+import { ContainerMother } from "../../../domain/container-mother";
+import { DependencyInjection } from "../../../../../../src/apps/backoffice/backend/dependency-injection/dependency-injection";
 
 const logger = LoggerMother.create();
 
 class UnhandledCommand extends Command {
-  static COMMAND_NAME = "unhandled.command";
+  static readonly COMMAND_NAME = "unhandled.command";
+
+  constructor() {
+    super({ commandName: UnhandledCommand.COMMAND_NAME });
+  }
 }
 
 class HandledCommand extends Command {
-  static COMMAND_NAME = "handled.command";
+  static readonly COMMAND_NAME = "handled.command";
+
+  constructor() {
+    super({ commandName: HandledCommand.COMMAND_NAME });
+  }
 }
 
 class MyCommandHandler implements CommandHandler<HandledCommand> {
-  subscribedTo(): HandledCommand {
+  subscribedTo() {
     return HandledCommand;
   }
 
@@ -32,8 +43,10 @@ class MyCommandHandler implements CommandHandler<HandledCommand> {
 
 describe("InMemoryCommandBus", () => {
   it("throws an error if dispatches a command without handler", async () => {
+    const scopeHandler = ScopeHandlerMother.create();
     const unhandledCommand = new UnhandledCommand();
     const commandHandlersInformation = new CommandHandlersInformation({
+      scopeHandler,
       commandHandlers: [],
     });
     const commandBus = new InMemoryCommandBus({ commandHandlersInformation });
@@ -55,9 +68,17 @@ describe("InMemoryCommandBus", () => {
   });
 
   it("accepts a command with handler", async () => {
+    const container = ContainerMother.create();
+
+    container.register({
+      myCommandHandler: DependencyInjection.toolBox().asClass(MyCommandHandler),
+    });
+
+    const scopeHandler = ScopeHandlerMother.createWithContainer(container);
     const handledCommand = new HandledCommand();
     const myCommandHandler = new MyCommandHandler();
     const commandHandlersInformation = new CommandHandlersInformation({
+      scopeHandler,
       commandHandlers: [myCommandHandler],
     });
     const commandBus = new InMemoryCommandBus({ commandHandlersInformation });

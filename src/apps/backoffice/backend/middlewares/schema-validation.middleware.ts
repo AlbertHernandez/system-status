@@ -19,7 +19,7 @@ export interface SchemasConfig {
 function getRequestPart(
   ctx: Koa.ParameterizedContext,
   requestPart: RequestValues
-): NodeJS.Dict<any> {
+) {
   if (requestPart === RequestValues.Params) {
     return ctx.params;
   }
@@ -30,7 +30,7 @@ function getRequestPart(
 function setRequestPart(
   ctx: Koa.ParameterizedContext,
   requestPart: RequestValues,
-  value: any
+  value: unknown
 ): void {
   if (requestPart === RequestValues.Params) {
     ctx.params = value;

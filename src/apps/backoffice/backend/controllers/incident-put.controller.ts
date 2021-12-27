@@ -34,6 +34,7 @@ export default class IncidentPutController extends Controller {
         id,
         description,
         impact,
+        commandId: this.requestId,
       })
     );
 

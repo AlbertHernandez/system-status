@@ -1,4 +1,3 @@
-import { Command } from "../../../../shared/domain/command";
 import { IncidentCreator } from "./incident-creator";
 import { CreateIncidentCommand } from "./create-incident-command";
 import { CommandHandler } from "../../../../shared/domain/command-handler";
@@ -15,7 +14,7 @@ export class CreateIncidentCommandHandler
     this.incidentCreator = dependencies.incidentCreator;
   }
 
-  subscribedTo(): Command {
+  subscribedTo() {
     return CreateIncidentCommand;
   }
 

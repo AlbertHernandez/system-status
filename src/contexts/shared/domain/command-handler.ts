@@ -1,6 +1,6 @@
-import { Command } from "./command";
+import { Command, CommandClass } from "./command";
 
-export interface CommandHandler<T extends Command> {
-  subscribedTo(): Command;
-  handle(command: T): Promise<void>;
+export interface CommandHandler<C extends Command> {
+  subscribedTo(): CommandClass;
+  handle(command: C): Promise<void>;
 }

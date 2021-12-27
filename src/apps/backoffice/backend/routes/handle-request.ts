@@ -1,11 +1,11 @@
 import Koa from "koa";
-import * as Awilix from "awilix";
 import { Controller } from "../controllers/controller";
 import { Class } from "../../../../contexts/shared/domain/class";
 import {
   SchemasConfig,
   validateSchema,
 } from "../middlewares/schema-validation.middleware";
+import { Container } from "../dependency-injection/dependency-injection";
 
 export const handleRequest =
   (controller: Class<Controller> & { schema?(): SchemasConfig }) =>
@@ -15,7 +15,7 @@ export const handleRequest =
     }
 
     const controllerName = controller.name;
-    const scopedContainer: Awilix.AwilixContainer = ctx.state.container;
+    const scopedContainer: Container = ctx.state.container;
     const instance = scopedContainer.resolve<Controller>(controllerName);
     const response = await instance.run(ctx);
 
