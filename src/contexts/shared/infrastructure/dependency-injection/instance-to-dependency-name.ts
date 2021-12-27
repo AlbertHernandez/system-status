@@ -1,5 +1,5 @@
-import camelcase from "camelcase";
 import { DependencyName } from "../../domain/dependency-name";
+import { toCamelCase } from "../to-camel-case";
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 const getClassName = (instance: Object) => {
@@ -8,5 +8,5 @@ const getClassName = (instance: Object) => {
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const instanceToDependencyName = (instance: Object): DependencyName => {
-  return camelcase(getClassName(instance));
+  return toCamelCase(getClassName(instance));
 };

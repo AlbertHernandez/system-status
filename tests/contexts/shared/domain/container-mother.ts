@@ -1,9 +1,9 @@
-import camelcase from "camelcase";
 import {
   Container,
   DependencyInjection,
 } from "../../../../src/contexts/shared/infrastructure/dependency-injection";
 import { Class } from "../../../../src/contexts/shared/domain/class";
+import { toCamelCase } from "../../../../src/contexts/shared/infrastructure/to-camel-case";
 
 export class ContainerMother {
   static create(): Container {
@@ -15,7 +15,7 @@ export class ContainerMother {
 
     classes.forEach((classObject) => {
       container.register({
-        [camelcase(classObject.name)]:
+        [toCamelCase(classObject.name)]:
           DependencyInjection.toolBox().asClass(classObject),
       });
     });
