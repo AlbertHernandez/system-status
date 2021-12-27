@@ -67,7 +67,9 @@ describe("InMemoryCommandBus", () => {
   });
 
   it("accepts a command with handler", async () => {
-    const container = ContainerMother.withClasses([MyCommandHandler]);
+    const container = ContainerMother.createRegisteringClasses([
+      MyCommandHandler,
+    ]);
 
     const scopeHandler = ScopeHandlerMother.createWithContainer(container);
     const handledCommand = new HandledCommand();

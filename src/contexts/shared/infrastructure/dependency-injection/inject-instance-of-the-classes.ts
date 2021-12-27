@@ -1,6 +1,6 @@
 import { Class } from "../../domain/class";
 import { Container, DependencyInjection } from "./dependency-injection";
-import { toCamelCase } from "../to-camel-case";
+import { classToDependencyName } from "./class-to-dependency-name";
 
 export const injectInstanceOfTheClasses = (classNames: Class<unknown>[]) => {
   return DependencyInjection.toolBox()
@@ -13,7 +13,7 @@ export const injectInstanceOfTheClasses = (classNames: Class<unknown>[]) => {
         handlers: Class<unknown>[];
       }) =>
         handlers.map((handler) =>
-          parentContainer.resolve(toCamelCase(handler.name))
+          parentContainer.resolve(classToDependencyName(handler))
         )
     )
     .inject((parentContainer: Container) => ({
