@@ -16,9 +16,9 @@ export const configureRequestScope = async (
 
   const scopeHandler = container.resolve<ScopeHandler>("scopeHandler");
 
-  const scopeContainer = scopeHandler.createScope({
-    scopeInfo: requestContext.toPrimitives(),
-  });
+  const scopeContainer = scopeHandler.createScope(
+    requestContext.toPrimitives()
+  );
 
   scopeContainer.register({
     requestContext: DependencyInjection.toolBox.asValue(requestContext),

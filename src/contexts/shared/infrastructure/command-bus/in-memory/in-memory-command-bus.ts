@@ -46,9 +46,7 @@ export class InMemoryCommandBus implements CommandBus {
     }
 
     const childContainer = this.scopeHandler.createScope({
-      scopeInfo: {
-        commandId: command.commandId,
-      },
+      commandId: command.commandId,
     });
 
     const logger = childContainer.resolve<Logger>("logger");

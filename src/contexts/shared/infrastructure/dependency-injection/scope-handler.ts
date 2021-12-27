@@ -11,14 +11,10 @@ export class ScopeHandler {
     this.container = dependencies.container;
   }
 
-  createScope(
-    dependencies: {
-      scopeInfo?: Record<string, unknown>;
-    } = {}
-  ): Container {
+  createScope(scopeInfo?: Record<string, unknown>): Container {
     const scope = this.container.createScope();
 
-    if (!dependencies.scopeInfo) {
+    if (!scopeInfo) {
       return scope;
     }
 
@@ -27,7 +23,7 @@ export class ScopeHandler {
     });
 
     if (logger) {
-      const scopedLogger = logger.child(dependencies.scopeInfo);
+      const scopedLogger = logger.child(scopeInfo);
 
       const errorHandler = new ErrorHandler({
         logger: scopedLogger,
