@@ -13,22 +13,20 @@ import {
 
 export const register = (container: Container) => {
   container.register({
-    container: DependencyInjection.toolBox().asValue(container),
-    logger: DependencyInjection.toolBox()
-      .asClass(PinoLogger)
-      .inject(() => {
-        return {
-          level: config.get("logger.level"),
-          isEnabled: config.get("logger.isEnabled"),
-        };
-      }),
-    errorHandler: DependencyInjection.toolBox().asClass(ErrorHandler),
-    scopeHandler: DependencyInjection.toolBox().asClass(ScopeHandler),
+    container: DependencyInjection.toolBox.asValue(container),
+    logger: DependencyInjection.toolBox.asClass(PinoLogger).inject(() => {
+      return {
+        level: config.get("logger.level"),
+        isEnabled: config.get("logger.isEnabled"),
+      };
+    }),
+    errorHandler: DependencyInjection.toolBox.asClass(ErrorHandler),
+    scopeHandler: DependencyInjection.toolBox.asClass(ScopeHandler),
     commandHandlers: injectInstanceOfTheClasses([CreateIncidentCommandHandler]),
-    commandHandlersInformation: DependencyInjection.toolBox().asClass(
+    commandHandlersInformation: DependencyInjection.toolBox.asClass(
       CommandHandlersInformation
     ),
-    commandBus: DependencyInjection.toolBox()
+    commandBus: DependencyInjection.toolBox
       .asClass(InMemoryCommandBus)
       .singleton(),
   });

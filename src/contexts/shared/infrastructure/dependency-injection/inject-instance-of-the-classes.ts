@@ -3,7 +3,7 @@ import { Container, DependencyInjection } from "./dependency-injection";
 import { classToDependencyName } from "./class-to-dependency-name";
 
 export const injectInstanceOfTheClasses = (classNames: Class<unknown>[]) => {
-  return DependencyInjection.toolBox()
+  return DependencyInjection.toolBox
     .asFunction(
       ({
         parentContainer,

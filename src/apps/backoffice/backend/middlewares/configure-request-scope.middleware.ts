@@ -17,7 +17,7 @@ export const configureRequestScope = async (
   });
 
   scopeContainer.register({
-    requestContext: DependencyInjection.toolBox().asValue(requestContext),
+    requestContext: DependencyInjection.toolBox.asValue(requestContext),
   });
 
   ctx.state.container = scopeContainer;

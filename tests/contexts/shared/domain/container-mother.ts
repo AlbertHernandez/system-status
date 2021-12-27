@@ -18,7 +18,7 @@ export class ContainerMother {
     classesToRegister.forEach((classToRegister) => {
       container.register({
         [classToDependencyName(classToRegister)]:
-          DependencyInjection.toolBox().asClass(classToRegister),
+          DependencyInjection.toolBox.asClass(classToRegister),
       });
     });
 

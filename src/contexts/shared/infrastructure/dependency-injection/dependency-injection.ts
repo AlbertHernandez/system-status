@@ -5,13 +5,13 @@ import { ErrorHandler } from "../error-handler";
 export type Container = awilix.AwilixContainer;
 
 export class DependencyInjection {
-  static toolBox() {
+  static get toolBox() {
     return awilix;
   }
 
   static createContainer(): Container {
-    return DependencyInjection.toolBox().createContainer({
-      injectionMode: DependencyInjection.toolBox().InjectionMode.PROXY,
+    return DependencyInjection.toolBox.createContainer({
+      injectionMode: DependencyInjection.toolBox.InjectionMode.PROXY,
     });
   }
 
@@ -39,8 +39,8 @@ export class DependencyInjection {
     });
 
     scope.register({
-      logger: DependencyInjection.toolBox().asValue(scopedLogger),
-      errorHandler: DependencyInjection.toolBox().asValue(errorHandler),
+      logger: DependencyInjection.toolBox.asValue(scopedLogger),
+      errorHandler: DependencyInjection.toolBox.asValue(errorHandler),
     });
 
     return scope;

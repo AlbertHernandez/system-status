@@ -9,7 +9,7 @@ const registerController = (routePath: string, container: Container) => {
   const route = require(routePath);
   const className = route.default;
   container.register({
-    [className.name]: DependencyInjection.toolBox().asClass(className),
+    [className.name]: DependencyInjection.toolBox.asClass(className),
   });
 };
 

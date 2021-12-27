@@ -8,11 +8,11 @@ import {
 
 export const register = (container: Container) => {
   container.register({
-    incidentCreator: DependencyInjection.toolBox().asClass(IncidentCreator),
-    createIncidentCommandHandler: DependencyInjection.toolBox().asClass(
+    incidentCreator: DependencyInjection.toolBox.asClass(IncidentCreator),
+    createIncidentCommandHandler: DependencyInjection.toolBox.asClass(
       CreateIncidentCommandHandler
     ),
-    incidentRepository: DependencyInjection.toolBox().asClass(
+    incidentRepository: DependencyInjection.toolBox.asClass(
       InMemoryIncidentRepository
     ),
   });
