@@ -1,8 +1,8 @@
 import Koa from "koa";
-import { container } from "../dependency-injection";
+import { createScope } from "../dependency-injection/create-scope";
 
 export const scopePerRequest = async (ctx: Koa.Context, next: Koa.Next) => {
-  ctx.state.container = container.createScope();
+  ctx.state.container = createScope();
 
   await next();
 };
