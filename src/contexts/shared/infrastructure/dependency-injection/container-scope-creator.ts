@@ -4,14 +4,14 @@ import { Nullable } from "../../domain/nullable";
 import { ErrorHandler } from "../error-handler";
 import { Container } from "./dependency-injection";
 
-export class ScopeHandler {
+export class ContainerScopeCreator {
   private readonly container;
 
   constructor(dependencies: { container: Container }) {
     this.container = dependencies.container;
   }
 
-  createScope(scopeInfo?: Record<string, unknown>): Container {
+  run(scopeInfo?: Record<string, unknown>): Container {
     const scope = this.container.createScope();
 
     if (!scopeInfo) {

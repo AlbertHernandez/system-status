@@ -4,20 +4,20 @@ import { CommandHandler } from "../../../domain/command-handler";
 import { DependencyName } from "../../../domain/dependency-name";
 import {
   instanceToDependencyName,
-  ScopeHandler,
+  ContainerScopeCreator,
 } from "../../dependency-injection";
 import { CommandNotRegisteredError } from "../../../domain/errors/command-not-registered-error";
 import { Logger } from "../../../domain/logger";
 
 export class InMemoryCommandBus implements CommandBus {
   private readonly commandHandlersMap;
-  private readonly scopeHandler;
+  private readonly containerScopeCreator;
 
   constructor(dependencies: {
     commandHandlers: Array<CommandHandler<Command>>;
-    scopeHandler: ScopeHandler;
+    containerScopeCreator: ContainerScopeCreator;
   }) {
-    this.scopeHandler = dependencies.scopeHandler;
+    this.containerScopeCreator = dependencies.containerScopeCreator;
     this.commandHandlersMap = this.formatHandlers(dependencies.commandHandlers);
   }
 
@@ -45,7 +45,7 @@ export class InMemoryCommandBus implements CommandBus {
       throw new CommandNotRegisteredError(command);
     }
 
-    const childContainer = this.scopeHandler.createScope({
+    const childContainer = this.containerScopeCreator.run({
       commandId: command.commandId,
     });
 

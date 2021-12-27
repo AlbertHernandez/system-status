@@ -7,7 +7,7 @@ import { injectInstanceOfTheClasses } from "../../../../contexts/shared/infrastr
 import {
   Container,
   DependencyInjection,
-  ScopeHandler,
+  ContainerScopeCreator,
 } from "../../../../contexts/shared/infrastructure/dependency-injection";
 
 export const register = (container: Container) => {
@@ -20,7 +20,9 @@ export const register = (container: Container) => {
       };
     }),
     errorHandler: DependencyInjection.toolBox.asClass(ErrorHandler),
-    scopeHandler: DependencyInjection.toolBox.asClass(ScopeHandler),
+    containerScopeCreator: DependencyInjection.toolBox.asClass(
+      ContainerScopeCreator
+    ),
     commandHandlers: injectInstanceOfTheClasses([CreateIncidentCommandHandler]),
     commandBus: DependencyInjection.toolBox
       .asClass(InMemoryCommandBus)

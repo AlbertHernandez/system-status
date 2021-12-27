@@ -3,7 +3,7 @@ import { CommandHandler } from "../../../../../../src/contexts/shared/domain/com
 import { CommandNotRegisteredError } from "../../../../../../src/contexts/shared/domain/errors/command-not-registered-error";
 import { InMemoryCommandBus } from "../../../../../../src/contexts/shared/infrastructure/command-bus/in-memory/in-memory-command-bus";
 import { LoggerMother } from "../../../domain/logger-mother";
-import { ScopeHandlerMother } from "../../../domain/scope-handler-mother";
+import { ContainerScopeCreatorMother } from "../../../domain/container-scope-creator-mother";
 import { ContainerMother } from "../../../domain/container-mother";
 
 const logger = LoggerMother.create();
@@ -41,11 +41,11 @@ class MyCommandHandler implements CommandHandler<HandledCommand> {
 
 describe("InMemoryCommandBus", () => {
   it("throws an error if dispatches a command without handler", async () => {
-    const scopeHandler = ScopeHandlerMother.create();
+    const containerScopeCreator = ContainerScopeCreatorMother.create();
     const unhandledCommand = new UnhandledCommand();
     const commandBus = new InMemoryCommandBus({
       commandHandlers: [],
-      scopeHandler,
+      containerScopeCreator,
     });
 
     let exception = null;
@@ -69,12 +69,13 @@ describe("InMemoryCommandBus", () => {
       MyCommandHandler,
     ]);
 
-    const scopeHandler = ScopeHandlerMother.createWithContainer(container);
+    const containerScopeCreator =
+      ContainerScopeCreatorMother.createWithContainer(container);
     const handledCommand = new HandledCommand();
     const myCommandHandler = new MyCommandHandler();
 
     const commandBus = new InMemoryCommandBus({
-      scopeHandler,
+      containerScopeCreator,
       commandHandlers: [myCommandHandler],
     });
 
