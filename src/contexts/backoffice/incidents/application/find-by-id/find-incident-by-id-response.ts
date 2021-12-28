@@ -7,6 +7,7 @@ export class FindIncidentByIdResponse extends Response {
   readonly status;
   readonly creationDate;
   readonly closedDate;
+  readonly numberOfReports;
 
   constructor(dependencies: {
     id: string;
@@ -15,6 +16,7 @@ export class FindIncidentByIdResponse extends Response {
     status: string;
     creationDate: string;
     closedDate: string | null;
+    numberOfReports: number;
   }) {
     super();
     this.id = dependencies.id;
@@ -23,5 +25,6 @@ export class FindIncidentByIdResponse extends Response {
     this.status = dependencies.status;
     this.creationDate = dependencies.creationDate;
     this.closedDate = dependencies.closedDate;
+    this.numberOfReports = dependencies.numberOfReports;
   }
 }

@@ -8,6 +8,7 @@ type CloseIncidentDomainEventBody = {
   readonly status: string;
   readonly creationDate: string;
   readonly closedDate: string;
+  readonly numberOfReports: number;
 };
 
 export class IncidentClosedDomainEvent extends DomainEvent {
@@ -18,6 +19,7 @@ export class IncidentClosedDomainEvent extends DomainEvent {
   readonly status: string;
   readonly creationDate: string;
   readonly closedDate: string;
+  readonly numberOfReports: number;
 
   constructor({
     id,
@@ -26,6 +28,7 @@ export class IncidentClosedDomainEvent extends DomainEvent {
     status,
     creationDate,
     closedDate,
+    numberOfReports,
     occurredOn,
     eventId,
   }: {
@@ -35,6 +38,7 @@ export class IncidentClosedDomainEvent extends DomainEvent {
     status: string;
     creationDate: string;
     closedDate: string;
+    numberOfReports: number;
     occurredOn?: Date;
     eventId?: string;
   }) {
@@ -48,6 +52,7 @@ export class IncidentClosedDomainEvent extends DomainEvent {
         status,
         creationDate,
         closedDate,
+        numberOfReports,
       },
       occurredOn,
     });
@@ -57,6 +62,7 @@ export class IncidentClosedDomainEvent extends DomainEvent {
     this.status = status;
     this.creationDate = creationDate;
     this.closedDate = closedDate;
+    this.numberOfReports = numberOfReports;
   }
 
   toPrimitive(): CloseIncidentDomainEventBody {
@@ -68,6 +74,7 @@ export class IncidentClosedDomainEvent extends DomainEvent {
       status: this.status,
       creationDate: this.creationDate,
       closedDate: this.closedDate,
+      numberOfReports: this.numberOfReports,
     };
   }
 
@@ -83,6 +90,7 @@ export class IncidentClosedDomainEvent extends DomainEvent {
       status: body.status,
       creationDate: body.creationDate,
       closedDate: body.closedDate,
+      numberOfReports: body.numberOfReports,
       eventId,
       occurredOn,
     });

@@ -8,6 +8,7 @@ import { IncidentClosedDate } from "./incident-closed-date";
 import { Nullable } from "../../../shared/domain/nullable";
 import { IncidentCreatedDomainEvent } from "./incident-created-domain-event";
 import { IncidentClosedDomainEvent } from "./incident-closed-domain-event";
+import { IncidentNumOfReports } from "./incident-num-of-reports";
 
 export class Incident extends AggregateRoot {
   readonly id;
@@ -16,6 +17,7 @@ export class Incident extends AggregateRoot {
   status;
   readonly creationDate;
   closedDate: Nullable<IncidentClosedDate>;
+  numberOfReports;
 
   constructor(dependencies: {
     id: IncidentId;
@@ -24,6 +26,7 @@ export class Incident extends AggregateRoot {
     status: IncidentStatus;
     creationDate: IncidentCreationDate;
     closedDate?: Nullable<IncidentClosedDate>;
+    numberOfReports?: IncidentNumOfReports;
   }) {
     super();
     this.id = dependencies.id;
@@ -32,6 +35,8 @@ export class Incident extends AggregateRoot {
     this.status = dependencies.status;
     this.creationDate = dependencies.creationDate;
     this.closedDate = dependencies.closedDate || null;
+    this.numberOfReports =
+      dependencies.numberOfReports || new IncidentNumOfReports(0);
   }
 
   close() {
@@ -46,6 +51,7 @@ export class Incident extends AggregateRoot {
         impact: this.impact.toString(),
         creationDate: this.creationDate.toString(),
         closedDate: this.closedDate.toString(),
+        numberOfReports: this.numberOfReports.value(),
       })
     );
   }
@@ -70,6 +76,7 @@ export class Incident extends AggregateRoot {
         status: incident.status.toString(),
         impact: incident.impact.toString(),
         creationDate: incident.creationDate.toString(),
+        numberOfReports: incident.numberOfReports.value(),
       })
     );
 
@@ -83,6 +90,7 @@ export class Incident extends AggregateRoot {
     status: string;
     creationDate: string;
     closedDate?: string | null;
+    numberOfReports?: number;
   }): Incident {
     return new Incident({
       id: new IncidentId(plainData.id),
@@ -93,6 +101,9 @@ export class Incident extends AggregateRoot {
       closedDate: plainData.closedDate
         ? new IncidentClosedDate(plainData.closedDate)
         : null,
+      numberOfReports: plainData.numberOfReports
+        ? new IncidentNumOfReports(plainData.numberOfReports)
+        : undefined,
     });
   }
 
@@ -104,6 +115,7 @@ export class Incident extends AggregateRoot {
       status: this.status.toString(),
       creationDate: this.creationDate.toString(),
       closedDate: this.closedDate ? this.closedDate.toString() : null,
+      numberOfReports: this.numberOfReports.value(),
     };
   }
 }
