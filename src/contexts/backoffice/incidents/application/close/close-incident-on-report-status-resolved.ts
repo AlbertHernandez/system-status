@@ -1,9 +1,9 @@
 import { DomainEventSubscriber } from "../../../../shared/domain/domain-event-subscriber";
-import { IncidentReportCreatedDomainEvent } from "../../../incident-reports/domain/incident-report-created-domain-event";
 import { Logger } from "../../../../shared/domain/logger";
+import { IncidentReportResolvedDomainEvent } from "../../../incident-reports/domain/incident-report-resolved-domain-event";
 
 export class CloseIncidentOnReportStatusResolved
-  implements DomainEventSubscriber<IncidentReportCreatedDomainEvent>
+  implements DomainEventSubscriber<IncidentReportResolvedDomainEvent>
 {
   private readonly logger;
 
@@ -12,10 +12,10 @@ export class CloseIncidentOnReportStatusResolved
   }
 
   subscribedTo() {
-    return [IncidentReportCreatedDomainEvent];
+    return [IncidentReportResolvedDomainEvent];
   }
 
-  async on(domainEvent: IncidentReportCreatedDomainEvent): Promise<void> {
+  async on(domainEvent: IncidentReportResolvedDomainEvent): Promise<void> {
     this.logger.info({
       message: "Event received",
       context: domainEvent.toPrimitive(),

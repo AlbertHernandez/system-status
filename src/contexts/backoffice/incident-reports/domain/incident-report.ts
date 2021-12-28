@@ -4,6 +4,7 @@ import { IncidentReportMessage } from "./incident-report-message";
 import { IncidentReportStatus } from "./incident-report-status";
 import { IncidentReportId } from "./incident-report-id";
 import { IncidentReportCreatedDomainEvent } from "./incident-report-created-domain-event";
+import { IncidentReportResolvedDomainEvent } from "./incident-report-resolved-domain-event";
 
 export class IncidentReport extends AggregateRoot {
   readonly incidentId;
@@ -47,7 +48,23 @@ export class IncidentReport extends AggregateRoot {
       })
     );
 
+    incidentReport.addResolvedDomainEventIfNeeded();
+
     return incidentReport;
+  }
+
+  private addResolvedDomainEventIfNeeded() {
+    if (!this.status.isResolved()) {
+      return;
+    }
+
+    this.record(
+      new IncidentReportResolvedDomainEvent({
+        incidentId: this.incidentId.toString(),
+        id: this.id.toString(),
+        message: this.message.toString(),
+      })
+    );
   }
 
   static fromPrimitives(plainData: {

@@ -33,6 +33,10 @@ export class IncidentReportStatus extends EnumValueObject<Status> {
     }
   }
 
+  isResolved(): boolean {
+    return this.value() === Status.RESOLVED;
+  }
+
   protected throwErrorForInvalidValue(value: unknown): void {
     throw new InvalidArgumentError({
       message: `<IncidentReportStatus.name> does not allow the value <${value}>`,
