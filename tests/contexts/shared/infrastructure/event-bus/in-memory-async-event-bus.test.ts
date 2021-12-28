@@ -3,6 +3,8 @@ import { DomainEventSubscriber } from "../../../../../src/contexts/shared/domain
 import { Uuid } from "../../../../../src/contexts/shared/domain/value-object/uuid";
 import { InMemoryAsyncEventBus } from "../../../../../src/contexts/shared/infrastructure/event-bus/in-memory-async-event-bus";
 import { LoggerMother } from "../../domain/logger-mother";
+import { ContainerMother } from "../../domain/container-mother";
+import { ContainerScopeCreatorMother } from "../../domain/container-scope-creator-mother";
 
 const logger = LoggerMother.create();
 
@@ -25,33 +27,38 @@ class DummyEvent extends DomainEvent {
   }
 }
 
-class DomainEventSubscriberDummy implements DomainEventSubscriber<DummyEvent> {
-  subscribedTo() {
-    return [DummyEvent];
-  }
-
-  async on(event: DummyEvent) {
-    logger.info({
-      message: "Event received",
-      context: event.toPrimitive(),
-    });
-  }
-}
-
 describe("InMemoryAsyncEventBus", () => {
   it("the subscriber should be called when the event it is subscribed to is published", (done) => {
-    const eventBus = new InMemoryAsyncEventBus();
+    class DomainEventSubscriberDummy
+      implements DomainEventSubscriber<DummyEvent>
+    {
+      subscribedTo() {
+        return [DummyEvent];
+      }
+
+      async on(event: DummyEvent) {
+        logger.info({
+          message: "Event received",
+          context: event.toPrimitive(),
+        });
+        done();
+      }
+    }
+
+    const container = ContainerMother.createRegisteringClasses([
+      DomainEventSubscriberDummy,
+    ]);
+
+    const containerScopeCreator =
+      ContainerScopeCreatorMother.createWithContainer(container);
+
+    const eventBus = new InMemoryAsyncEventBus({
+      containerScopeCreator,
+    });
 
     const event = new DummyEvent(Uuid.random().value());
 
     const subscriber = new DomainEventSubscriberDummy();
-    subscriber.on = async (event: DummyEvent) => {
-      logger.info({
-        message: "Event received",
-        context: event.toPrimitive(),
-      });
-      done();
-    };
 
     eventBus.addSubscribers([subscriber]);
 
