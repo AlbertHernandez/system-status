@@ -10,7 +10,7 @@ export abstract class Command {
   readonly commandName;
 
   constructor(dependencies: {
-    commandName: string;
+    commandName: CommandName;
     commandId?: string;
     occurredOn?: Date;
     attributes?: Record<string, unknown>;
