@@ -1,6 +1,6 @@
 import { Nullable } from "../../../../shared/domain/nullable";
 import { Incident } from "../../domain/incident";
-import { IncidentId } from "../../domain/incident-id";
+import { IncidentId } from "../../../shared/domain/incident-id";
 import { IncidentRepository } from "../../domain/incident-repository";
 
 export class InMemoryIncidentRepository implements IncidentRepository {

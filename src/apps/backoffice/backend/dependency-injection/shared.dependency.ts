@@ -11,6 +11,7 @@ import {
 } from "../../../../contexts/shared/infrastructure/dependency-injection";
 import { InMemoryQueryBus } from "../../../../contexts/shared/infrastructure/query-bus/in-memory/in-memory-query-bus";
 import { FindIncidentByIdQueryHandler } from "../../../../contexts/backoffice/incidents/application/find-by-id/find-incident-by-id-query-handler";
+import { CreateIncidentReportCommandHandler } from "../../../../contexts/backoffice/incident-reports/application/create-incident-report-command-handler";
 
 export const register = (container: Container) => {
   container.register({
@@ -25,7 +26,10 @@ export const register = (container: Container) => {
     containerScopeCreator: DependencyInjection.toolBox.asClass(
       ContainerScopeCreator
     ),
-    commandHandlers: injectInstanceOfTheClasses([CreateIncidentCommandHandler]),
+    commandHandlers: injectInstanceOfTheClasses([
+      CreateIncidentCommandHandler,
+      CreateIncidentReportCommandHandler,
+    ]),
     queryHandlers: injectInstanceOfTheClasses([FindIncidentByIdQueryHandler]),
     commandBus: DependencyInjection.toolBox
       .asClass(InMemoryCommandBus)

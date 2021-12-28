@@ -1,7 +1,7 @@
 import { IncidentCreator } from "./incident-creator";
 import { CreateIncidentCommand } from "./create-incident-command";
 import { CommandHandler } from "../../../../shared/domain/command-handler";
-import { IncidentId } from "../../domain/incident-id";
+import { IncidentId } from "../../../shared/domain/incident-id";
 import { IncidentImpact } from "../../domain/incident-impact";
 import { IncidentDescription } from "../../domain/incident-description";
 

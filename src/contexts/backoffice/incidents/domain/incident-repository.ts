@@ -1,5 +1,5 @@
 import { Nullable } from "../../../Shared/domain/Nullable";
-import { IncidentId } from "./incident-id";
+import { IncidentId } from "../../shared/domain/incident-id";
 import { Incident } from "./incident";
 
 export interface IncidentRepository {

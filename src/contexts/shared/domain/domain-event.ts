@@ -20,6 +20,7 @@ export abstract class DomainEvent {
   readonly occurredOn: Date;
   readonly meta: Record<string, unknown>;
   readonly attributes: Attributes;
+  readonly id: string;
 
   constructor(dependencies: {
     eventName: string;
@@ -32,6 +33,7 @@ export abstract class DomainEvent {
     this.eventName = dependencies.eventName;
     this.occurredOn = dependencies.occurredOn || new Date();
     this.attributes = dependencies.attributes;
+    this.id = dependencies.attributes.id;
     this.meta = dependencies.meta || {};
   }
 

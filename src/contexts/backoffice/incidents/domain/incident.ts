@@ -1,5 +1,5 @@
 import { AggregateRoot } from "../../../shared/domain/aggregate-root";
-import { IncidentId } from "./incident-id";
+import { IncidentId } from "../../shared/domain/incident-id";
 import { IncidentDescription } from "./incident-description";
 import { IncidentImpact } from "./incident-impact";
 import { IncidentStatus, Status } from "./incident-status";
@@ -54,7 +54,7 @@ export class Incident extends AggregateRoot {
     id: IncidentId;
     description: IncidentDescription;
     impact: IncidentImpact;
-  }) {
+  }): Incident {
     const incident = new Incident({
       id: payload.id,
       description: payload.description,

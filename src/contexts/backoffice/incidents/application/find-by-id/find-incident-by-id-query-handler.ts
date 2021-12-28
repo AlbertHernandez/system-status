@@ -1,4 +1,4 @@
-import { IncidentId } from "../../domain/incident-id";
+import { IncidentId } from "../../../shared/domain/incident-id";
 import { IncidentByIdFinder } from "./incident-by-id-finder";
 import { QueryHandler } from "../../../../shared/domain/query-handler";
 import { FindIncidentByIdQuery } from "./find-incident-by-id-query";

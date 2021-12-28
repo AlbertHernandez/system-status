@@ -1,5 +1,5 @@
 import { IncidentRepository } from "../../domain/incident-repository";
-import { IncidentId } from "../../domain/incident-id";
+import { IncidentId } from "../../../shared/domain/incident-id";
 import { IncidentDescription } from "../../domain/incident-description";
 import { IncidentImpact } from "../../domain/incident-impact";
 import { Incident } from "../../domain/incident";
