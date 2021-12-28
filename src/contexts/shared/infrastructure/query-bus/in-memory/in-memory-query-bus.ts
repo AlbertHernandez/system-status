@@ -15,11 +15,11 @@ export class InMemoryQueryBus implements QueryBus {
   private readonly containerScopeCreator;
 
   constructor(dependencies: {
-    commandHandlers: Array<QueryHandler>;
+    queryHandlers: Array<QueryHandler>;
     containerScopeCreator: ContainerScopeCreator;
   }) {
     this.containerScopeCreator = dependencies.containerScopeCreator;
-    this.queryHandlersMap = this.formatHandlers(dependencies.commandHandlers);
+    this.queryHandlersMap = this.formatHandlers(dependencies.queryHandlers);
   }
 
   private formatHandlers(

@@ -49,7 +49,7 @@ describe("InMemoryCommandBus", () => {
     const containerScopeCreator = ContainerScopeCreatorMother.create();
     const unhandledQuery = new UnhandledQuery();
     const queryBus = new InMemoryQueryBus({
-      commandHandlers: [],
+      queryHandlers: [],
       containerScopeCreator,
     });
 
@@ -81,7 +81,7 @@ describe("InMemoryCommandBus", () => {
 
     const queryBus = new InMemoryQueryBus({
       containerScopeCreator,
-      commandHandlers: [myCommandHandler],
+      queryHandlers: [myCommandHandler],
     });
 
     const response = await queryBus.ask(handledQuery);

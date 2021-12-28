@@ -9,6 +9,8 @@ import {
   DependencyInjection,
   ContainerScopeCreator,
 } from "../../../../contexts/shared/infrastructure/dependency-injection";
+import { InMemoryQueryBus } from "../../../../contexts/shared/infrastructure/query-bus/in-memory/in-memory-query-bus";
+import { FindIncidentByIdQueryHandler } from "../../../../contexts/backoffice/incidents/application/find-by-id/find-incident-by-id-query-handler";
 
 export const register = (container: Container) => {
   container.register({
@@ -24,8 +26,10 @@ export const register = (container: Container) => {
       ContainerScopeCreator
     ),
     commandHandlers: injectInstanceOfTheClasses([CreateIncidentCommandHandler]),
+    queryHandlers: injectInstanceOfTheClasses([FindIncidentByIdQueryHandler]),
     commandBus: DependencyInjection.toolBox
       .asClass(InMemoryCommandBus)
       .singleton(),
+    queryBus: DependencyInjection.toolBox.asClass(InMemoryQueryBus).singleton(),
   });
 };
