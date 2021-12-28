@@ -7,7 +7,7 @@ type CreateIncidentDomainEventBody = {
   readonly impact: string;
   readonly status: string;
   readonly creationDate: string;
-  readonly numberOfReports: number;
+  readonly reportsCounter: number;
 };
 
 export class IncidentCreatedDomainEvent extends DomainEvent {
@@ -17,7 +17,7 @@ export class IncidentCreatedDomainEvent extends DomainEvent {
   readonly impact: string;
   readonly status: string;
   readonly creationDate: string;
-  readonly numberOfReports: number;
+  readonly reportsCounter: number;
 
   constructor({
     id,
@@ -25,7 +25,7 @@ export class IncidentCreatedDomainEvent extends DomainEvent {
     impact,
     status,
     creationDate,
-    numberOfReports,
+    reportsCounter,
     occurredOn,
     eventId,
   }: {
@@ -34,7 +34,7 @@ export class IncidentCreatedDomainEvent extends DomainEvent {
     impact: string;
     status: string;
     creationDate: string;
-    numberOfReports: number;
+    reportsCounter: number;
     occurredOn?: Date;
     eventId?: string;
   }) {
@@ -47,7 +47,7 @@ export class IncidentCreatedDomainEvent extends DomainEvent {
         impact,
         status,
         creationDate,
-        numberOfReports,
+        reportsCounter,
       },
       occurredOn,
     });
@@ -56,7 +56,7 @@ export class IncidentCreatedDomainEvent extends DomainEvent {
     this.impact = impact;
     this.status = status;
     this.creationDate = creationDate;
-    this.numberOfReports = numberOfReports;
+    this.reportsCounter = reportsCounter;
   }
 
   toPrimitive(): CreateIncidentDomainEventBody {
@@ -67,7 +67,7 @@ export class IncidentCreatedDomainEvent extends DomainEvent {
       impact: this.impact,
       status: this.status,
       creationDate: this.creationDate,
-      numberOfReports: this.numberOfReports,
+      reportsCounter: this.reportsCounter,
     };
   }
 

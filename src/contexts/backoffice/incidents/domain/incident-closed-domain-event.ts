@@ -8,7 +8,7 @@ type CloseIncidentDomainEventBody = {
   readonly status: string;
   readonly creationDate: string;
   readonly closedDate: string;
-  readonly numberOfReports: number;
+  readonly reportsCounter: number;
 };
 
 export class IncidentClosedDomainEvent extends DomainEvent {
@@ -19,7 +19,7 @@ export class IncidentClosedDomainEvent extends DomainEvent {
   readonly status: string;
   readonly creationDate: string;
   readonly closedDate: string;
-  readonly numberOfReports: number;
+  readonly reportsCounter: number;
 
   constructor({
     id,
@@ -28,7 +28,7 @@ export class IncidentClosedDomainEvent extends DomainEvent {
     status,
     creationDate,
     closedDate,
-    numberOfReports,
+    reportsCounter,
     occurredOn,
     eventId,
   }: {
@@ -38,7 +38,7 @@ export class IncidentClosedDomainEvent extends DomainEvent {
     status: string;
     creationDate: string;
     closedDate: string;
-    numberOfReports: number;
+    reportsCounter: number;
     occurredOn?: Date;
     eventId?: string;
   }) {
@@ -52,7 +52,7 @@ export class IncidentClosedDomainEvent extends DomainEvent {
         status,
         creationDate,
         closedDate,
-        numberOfReports,
+        reportsCounter,
       },
       occurredOn,
     });
@@ -62,7 +62,7 @@ export class IncidentClosedDomainEvent extends DomainEvent {
     this.status = status;
     this.creationDate = creationDate;
     this.closedDate = closedDate;
-    this.numberOfReports = numberOfReports;
+    this.reportsCounter = reportsCounter;
   }
 
   toPrimitive(): CloseIncidentDomainEventBody {
@@ -74,7 +74,7 @@ export class IncidentClosedDomainEvent extends DomainEvent {
       status: this.status,
       creationDate: this.creationDate,
       closedDate: this.closedDate,
-      numberOfReports: this.numberOfReports,
+      reportsCounter: this.reportsCounter,
     };
   }
 
@@ -90,7 +90,7 @@ export class IncidentClosedDomainEvent extends DomainEvent {
       status: body.status,
       creationDate: body.creationDate,
       closedDate: body.closedDate,
-      numberOfReports: body.numberOfReports,
+      reportsCounter: body.reportsCounter,
       eventId,
       occurredOn,
     });

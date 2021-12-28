@@ -12,7 +12,7 @@ export class InMemoryIncidentRepository implements IncidentRepository {
       status: string;
       creationDate: string;
       closedDate: string | null;
-      numberOfReports: number;
+      reportsCounter: number;
     };
   };
 
