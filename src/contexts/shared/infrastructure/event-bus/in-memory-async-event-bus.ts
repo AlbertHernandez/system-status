@@ -19,31 +19,6 @@ export class InMemoryAsyncEventBus extends EventEmitter implements EventBus {
     this.registerSubscribers(dependencies.domainEventSubscribers || []);
   }
 
-  registerSubscribers(subscribers: DomainEventSubscriber<DomainEvent>[]) {
-    subscribers.map((subscriber) => {
-      this.registerSubscriber(subscriber);
-    });
-  }
-
-  private registerSubscriber(subscriber: DomainEventSubscriber<DomainEvent>) {
-    subscriber.subscribedTo().map((event) => {
-      this.on(event.EVENT_NAME, async (domainEvent: DomainEvent) => {
-        const childContainer = this.containerScopeCreator.run({
-          eventId: domainEvent.eventId,
-        });
-
-        const subscriberName = instanceToDependencyName(subscriber);
-
-        const subscriberInstance =
-          childContainer.resolve<DomainEventSubscriber<DomainEvent>>(
-            subscriberName
-          );
-
-        await subscriberInstance.on(domainEvent);
-      });
-    });
-  }
-
   async start(): Promise<void> {
     return;
   }
@@ -54,5 +29,40 @@ export class InMemoryAsyncEventBus extends EventEmitter implements EventBus {
 
   addSubscribers(subscribers: Array<DomainEventSubscriber<DomainEvent>>) {
     this.registerSubscribers(subscribers);
+  }
+
+  private registerSubscribers(
+    subscribers: DomainEventSubscriber<DomainEvent>[]
+  ) {
+    subscribers.map((subscriber) => {
+      this.registerSubscriber(subscriber);
+    });
+  }
+
+  private registerSubscriber(subscriber: DomainEventSubscriber<DomainEvent>) {
+    subscriber.subscribedTo().map((event) => {
+      this.on(event.EVENT_NAME, async (domainEvent: DomainEvent) => {
+        await this.onDomainEvent(
+          domainEvent,
+          instanceToDependencyName(subscriber)
+        );
+      });
+    });
+  }
+
+  private async onDomainEvent(
+    domainEvent: DomainEvent,
+    subscriberName: string
+  ) {
+    const childContainer = this.containerScopeCreator.run({
+      eventId: domainEvent.eventId,
+    });
+
+    const subscriberInstance =
+      childContainer.resolve<DomainEventSubscriber<DomainEvent>>(
+        subscriberName
+      );
+
+    await subscriberInstance.on(domainEvent);
   }
 }
