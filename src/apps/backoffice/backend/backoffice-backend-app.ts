@@ -6,6 +6,9 @@ import { DomainEventSubscriber } from "../../../contexts/shared/domain/domain-ev
 import { DomainEvent } from "../../../contexts/shared/domain/domain-event";
 import { QueryBus } from "../../../contexts/shared/domain/query-bus";
 import { QueryHandler } from "../../../contexts/shared/domain/query-handler";
+import { CommandBus } from "../../../contexts/shared/domain/command-bus";
+import { CommandHandler } from "../../../contexts/shared/domain/command-handler";
+import { Command } from "../../../contexts/shared/domain/command";
 
 export class BackofficeBackendApp {
   private server?: Server;
@@ -16,6 +19,7 @@ export class BackofficeBackendApp {
     });
     await this.startEventBus();
     await this.startQueryBus();
+    await this.startCommandBus();
     return this.server.listen();
   }
 
@@ -53,5 +57,14 @@ export class BackofficeBackendApp {
       container.resolve<Array<QueryHandler>>("queryHandlers");
 
     queryBus.addHandlers(queryHandlers);
+  }
+
+  private async startCommandBus() {
+    const commandBus = container.resolve<CommandBus>("commandBus");
+
+    const commandHandlers =
+      container.resolve<Array<CommandHandler<Command>>>("commandHandlers");
+
+    commandBus.addHandlers(commandHandlers);
   }
 }

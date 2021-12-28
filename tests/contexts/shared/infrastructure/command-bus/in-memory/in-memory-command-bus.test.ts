@@ -44,7 +44,6 @@ describe("InMemoryCommandBus", () => {
     const containerScopeCreator = ContainerScopeCreatorMother.create();
     const unhandledCommand = new UnhandledCommand();
     const commandBus = new InMemoryCommandBus({
-      commandHandlers: [],
       containerScopeCreator,
     });
 
@@ -76,8 +75,9 @@ describe("InMemoryCommandBus", () => {
 
     const commandBus = new InMemoryCommandBus({
       containerScopeCreator,
-      commandHandlers: [myCommandHandler],
     });
+
+    commandBus.addHandlers([myCommandHandler]);
 
     await commandBus.dispatch(handledCommand);
   });

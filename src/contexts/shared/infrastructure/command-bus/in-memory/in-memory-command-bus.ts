@@ -10,30 +10,12 @@ import { CommandNotRegisteredError } from "../../../domain/errors/command-not-re
 import { Logger } from "../../../domain/logger";
 
 export class InMemoryCommandBus implements CommandBus {
-  private readonly commandHandlersMap;
+  private readonly commandHandlersMap: Map<CommandName, DependencyName>;
   private readonly containerScopeCreator;
 
-  constructor(dependencies: {
-    commandHandlers: Array<CommandHandler<Command>>;
-    containerScopeCreator: ContainerScopeCreator;
-  }) {
+  constructor(dependencies: { containerScopeCreator: ContainerScopeCreator }) {
     this.containerScopeCreator = dependencies.containerScopeCreator;
-    this.commandHandlersMap = this.formatHandlers(dependencies.commandHandlers);
-  }
-
-  private formatHandlers(
-    commandHandlers: Array<CommandHandler<Command>>
-  ): Map<CommandName, DependencyName> {
-    const handlersMap = new Map();
-
-    commandHandlers.forEach((commandHandler) => {
-      handlersMap.set(
-        commandHandler.subscribedTo().COMMAND_NAME,
-        instanceToDependencyName(commandHandler)
-      );
-    });
-
-    return handlersMap;
+    this.commandHandlersMap = new Map();
   }
 
   async dispatch(command: Command): Promise<void> {
@@ -61,5 +43,14 @@ export class InMemoryCommandBus implements CommandBus {
     });
 
     await handler.handle(command);
+  }
+
+  addHandlers(commandHandlers: Array<CommandHandler<Command>>): void {
+    commandHandlers.forEach((commandHandler) => {
+      this.commandHandlersMap.set(
+        commandHandler.subscribedTo().COMMAND_NAME,
+        instanceToDependencyName(commandHandler)
+      );
+    });
   }
 }
