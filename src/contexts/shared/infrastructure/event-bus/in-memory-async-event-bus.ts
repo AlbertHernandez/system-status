@@ -10,13 +10,9 @@ import {
 export class InMemoryAsyncEventBus extends EventEmitter implements EventBus {
   private readonly containerScopeCreator;
 
-  constructor(dependencies: {
-    domainEventSubscribers?: Array<DomainEventSubscriber<DomainEvent>>;
-    containerScopeCreator: ContainerScopeCreator;
-  }) {
+  constructor(dependencies: { containerScopeCreator: ContainerScopeCreator }) {
     super();
     this.containerScopeCreator = dependencies.containerScopeCreator;
-    this.registerSubscribers(dependencies.domainEventSubscribers || []);
   }
 
   async start(): Promise<void> {

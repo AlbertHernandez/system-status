@@ -8,6 +8,7 @@ import {
 import { IncidentByIdFinder } from "../../../../contexts/backoffice/incidents/application/find-by-id/incident-by-id-finder";
 import { FindIncidentByIdQueryHandler } from "../../../../contexts/backoffice/incidents/application/find-by-id/find-incident-by-id-query-handler";
 import { CloseIncidentOnReportResolved } from "../../../../contexts/backoffice/incidents/application/close/close-incident-on-report-resolved";
+import { IncidentCloser } from "../../../../contexts/backoffice/incidents/application/close/incident-closer";
 
 export const register = (container: Container) => {
   container.register({
@@ -21,6 +22,7 @@ export const register = (container: Container) => {
     closeIncidentOnReportResolved: DependencyInjection.toolBox.asClass(
       CloseIncidentOnReportResolved
     ),
+    incidentCloser: DependencyInjection.toolBox.asClass(IncidentCloser),
     incidentByIdFinder: DependencyInjection.toolBox.asClass(IncidentByIdFinder),
     incidentRepository: DependencyInjection.toolBox
       .asClass(InMemoryIncidentRepository)

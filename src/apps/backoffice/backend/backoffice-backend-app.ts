@@ -2,6 +2,8 @@ import { config } from "../../../contexts/backoffice/shared/infrastructure/confi
 import { Server } from "./server";
 import { container } from "./dependency-injection/container";
 import { EventBus } from "../../../contexts/shared/domain/event-bus";
+import { DomainEventSubscriber } from "../../../contexts/shared/domain/domain-event-subscriber";
+import { DomainEvent } from "../../../contexts/shared/domain/domain-event";
 
 export class BackofficeBackendApp {
   private server?: Server;
@@ -31,6 +33,13 @@ export class BackofficeBackendApp {
 
   private async startEventBus() {
     const eventBus = container.resolve<EventBus>("eventBus");
+
+    const domainEventSubscribers = container.resolve<
+      Array<DomainEventSubscriber<DomainEvent>>
+    >("domainEventSubscribers");
+
+    eventBus.addSubscribers(domainEventSubscribers);
+
     eventBus.start();
   }
 }
