@@ -30,7 +30,6 @@ export class ErrorHandler implements IErrorHandler {
       message: error.message,
       context: {
         isOperational: error.isOperational,
-        status: error.status,
         meta: error.meta,
         code: error.code,
         name: error.name,

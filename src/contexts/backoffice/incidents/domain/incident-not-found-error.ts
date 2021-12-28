@@ -1,5 +1,4 @@
 import { BaseError } from "../../../shared/domain/errors/base-error";
-import httpStatus from "http-status";
 
 export class IncidentNotFoundError extends BaseError {
   constructor({ id }: { id: string }) {
@@ -10,7 +9,6 @@ export class IncidentNotFoundError extends BaseError {
         id,
       },
       isOperational: true,
-      status: httpStatus.BAD_REQUEST,
     });
   }
 }

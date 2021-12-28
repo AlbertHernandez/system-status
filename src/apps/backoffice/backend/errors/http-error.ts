@@ -1,6 +1,8 @@
 import { BaseError } from "../../../../contexts/shared/domain/errors/base-error";
 
 export class HttpError extends BaseError {
+  readonly status: number;
+
   constructor(dependencies: {
     message: string;
     code: string;
@@ -11,5 +13,6 @@ export class HttpError extends BaseError {
       ...dependencies,
       isOperational: true,
     });
+    this.status = dependencies.status;
   }
 }

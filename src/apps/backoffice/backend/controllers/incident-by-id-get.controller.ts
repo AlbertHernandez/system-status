@@ -6,6 +6,8 @@ import { uuid } from "../helpers/uuid";
 import { HttpResponse } from "../models/http-response";
 import { FindIncidentByIdQuery } from "../../../../contexts/backoffice/incidents/application/find-by-id/find-incident-by-id-query";
 import { FindIncidentByIdResponse } from "../../../../contexts/backoffice/incidents/application/find-by-id/find-incident-by-id-response";
+import { IncidentNotFoundError } from "../../../../contexts/backoffice/incidents/domain/incident-not-found-error";
+import { NotFoundError } from "../errors/not-found-error";
 
 export default class IncidentByIdGetController extends Controller {
   static schema(): SchemasConfig {
@@ -19,12 +21,22 @@ export default class IncidentByIdGetController extends Controller {
   async run(ctx: Koa.Context) {
     const { id } = ctx.params as { id: string };
 
-    const response = await this.ask<FindIncidentByIdResponse>(
-      new FindIncidentByIdQuery({ queryId: this.requestId, id })
-    );
+    try {
+      const response = await this.ask<FindIncidentByIdResponse>(
+        new FindIncidentByIdQuery({ queryId: this.requestId, id })
+      );
 
-    return new HttpResponse({
-      data: response,
-    });
+      return new HttpResponse({
+        data: response,
+      });
+    } catch (error) {
+      if (error instanceof IncidentNotFoundError) {
+        throw new NotFoundError({
+          message: error.message,
+        });
+      }
+
+      throw error;
+    }
   }
 }

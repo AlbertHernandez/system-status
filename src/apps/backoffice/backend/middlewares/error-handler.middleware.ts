@@ -2,6 +2,7 @@ import httpStatus from "http-status";
 import Koa from "koa";
 import { BaseError } from "../../../../contexts/shared/domain/errors/base-error";
 import { ErrorHandler } from "../../../../contexts/shared/domain/error-handler";
+import { HttpError } from "../errors/http-error";
 
 const INTERNAL_SERVER_ERROR = "Internal Server Error";
 
@@ -17,13 +18,16 @@ export const errorHandler = async (ctx: Koa.Context, next: Koa.Next) => {
         throw error;
       }
 
-      const isClientError = Boolean(error.status?.toString().startsWith("4"));
+      const errorStatus =
+        error instanceof HttpError ? error.status : ctx.status;
+
+      const isClientError = Boolean(errorStatus.toString().startsWith("4"));
 
       if (!isClientError) {
         throw error;
       }
 
-      ctx.status = error.status || httpStatus.INTERNAL_SERVER_ERROR;
+      ctx.status = errorStatus;
       ctx.body = {
         error: {
           message: error.message,
