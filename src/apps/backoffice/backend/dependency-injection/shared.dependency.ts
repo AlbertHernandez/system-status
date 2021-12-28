@@ -16,6 +16,7 @@ import { FindIncidentReportByIdQueryHandler } from "../../../../contexts/backoff
 import { InMemoryAsyncEventBus } from "../../../../contexts/shared/infrastructure/event-bus/in-memory-async-event-bus";
 import { CloseIncidentOnReportResolved } from "../../../../contexts/backoffice/incidents/application/close/close-incident-on-report-resolved";
 import { FindIncidentReportByIncidentIdQueryHandler } from "../../../../contexts/backoffice/incident-reports/application/find-by-incident-id/find-incident-report-by-incident-id-query-handler";
+import { CalculateReportCounterOnReportCreated } from "../../../../contexts/backoffice/incidents/application/reports-counter-calculator/calculate-report-counter-on-report-created";
 
 export const register = (container: Container) => {
   container.register({
@@ -48,6 +49,7 @@ export const register = (container: Container) => {
       .singleton(),
     domainEventSubscribers: injectInstanceOfTheClasses([
       CloseIncidentOnReportResolved,
+      CalculateReportCounterOnReportCreated,
     ]),
   });
 };

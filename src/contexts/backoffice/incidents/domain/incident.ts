@@ -39,6 +39,10 @@ export class Incident extends AggregateRoot {
       dependencies.reportsCounter || IncidentReportsCounter.initialize();
   }
 
+  setReportsCounter(reportCounter: IncidentReportsCounter) {
+    this.reportsCounter = reportCounter;
+  }
+
   close() {
     this.status = new IncidentStatus(Status.CLOSED);
     this.closedDate = new IncidentClosedDate();
