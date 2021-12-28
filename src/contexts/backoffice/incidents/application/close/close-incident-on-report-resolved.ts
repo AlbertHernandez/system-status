@@ -2,7 +2,7 @@ import { DomainEventSubscriber } from "../../../../shared/domain/domain-event-su
 import { Logger } from "../../../../shared/domain/logger";
 import { IncidentReportResolvedDomainEvent } from "../../../incident-reports/domain/incident-report-resolved-domain-event";
 
-export class CloseIncidentOnReportStatusResolved
+export class CloseIncidentOnReportResolved
   implements DomainEventSubscriber<IncidentReportResolvedDomainEvent>
 {
   private readonly logger;
