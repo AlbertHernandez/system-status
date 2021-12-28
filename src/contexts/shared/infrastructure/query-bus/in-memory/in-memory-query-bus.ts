@@ -19,15 +19,6 @@ export class InMemoryQueryBus implements QueryBus {
     this.queryHandlersMap = new Map();
   }
 
-  private formatHandlers(queryHandlers: Array<QueryHandler>) {
-    queryHandlers.forEach((commandHandler) => {
-      this.queryHandlersMap.set(
-        commandHandler.subscribedTo().QUERY_NAME,
-        instanceToDependencyName(commandHandler)
-      );
-    });
-  }
-
   async ask<R extends Response>(query: Query): Promise<R> {
     const queryHandlerClassName = this.queryHandlersMap.get(query.queryName);
 
@@ -52,6 +43,11 @@ export class InMemoryQueryBus implements QueryBus {
   }
 
   addHandlers(queryHandlers: Array<QueryHandler>): void {
-    this.formatHandlers(queryHandlers);
+    queryHandlers.forEach((commandHandler) => {
+      this.queryHandlersMap.set(
+        commandHandler.subscribedTo().QUERY_NAME,
+        instanceToDependencyName(commandHandler)
+      );
+    });
   }
 }
