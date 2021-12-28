@@ -6,6 +6,13 @@ import { IncidentReportId } from "./incident-report-id";
 import { IncidentReportCreatedDomainEvent } from "./incident-report-created-domain-event";
 import { IncidentReportResolvedDomainEvent } from "./incident-report-resolved-domain-event";
 
+export interface PlainIncidentReport {
+  id: string;
+  incidentId: string;
+  message: string;
+  status: string;
+}
+
 export class IncidentReport extends AggregateRoot {
   readonly incidentId;
   readonly id;
@@ -67,12 +74,7 @@ export class IncidentReport extends AggregateRoot {
     );
   }
 
-  static fromPrimitives(plainData: {
-    incidentId: string;
-    id: string;
-    message: string;
-    status: string;
-  }): IncidentReport {
+  static fromPrimitives(plainData: PlainIncidentReport): IncidentReport {
     return new IncidentReport({
       incidentId: new IncidentId(plainData.incidentId),
       id: new IncidentReportId(plainData.id),
@@ -81,7 +83,7 @@ export class IncidentReport extends AggregateRoot {
     });
   }
 
-  toPrimitives() {
+  toPrimitives(): PlainIncidentReport {
     return {
       incidentId: this.incidentId.toString(),
       id: this.id.toString(),

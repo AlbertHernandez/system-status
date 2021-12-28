@@ -7,6 +7,7 @@ import { HttpResponse } from "../models/http-response";
 import { NotFoundError } from "../errors/not-found-error";
 import { FindIncidentReportByIdQuery } from "../../../../contexts/backoffice/incident-reports/application/find-by-id/find-incident-report-by-id-query";
 import { IncidentReportNotFoundError } from "../../../../contexts/backoffice/incident-reports/domain/incident-report-not-found-error";
+import { FindIncidentByIdResponse } from "../../../../contexts/backoffice/incidents/application/find-by-id/find-incident-by-id-response";
 
 export default class IncidentReportByIdGetController extends Controller {
   static schema(): SchemasConfig {
@@ -21,7 +22,7 @@ export default class IncidentReportByIdGetController extends Controller {
     const { id } = ctx.params as { id: string };
 
     try {
-      const response = await this.ask<FindIncidentReportByIdQuery>(
+      const response = await this.ask<FindIncidentByIdResponse>(
         new FindIncidentReportByIdQuery({ queryId: this.requestId, id })
       );
 

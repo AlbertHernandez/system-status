@@ -11,30 +11,21 @@ import { QueryHandler } from "../../../domain/query-handler";
 import { QueryNotRegisteredError } from "../../../domain/errors/query-not-registered-error";
 
 export class InMemoryQueryBus implements QueryBus {
-  private readonly queryHandlersMap;
+  private readonly queryHandlersMap: Map<QueryName, DependencyName>;
   private readonly containerScopeCreator;
 
-  constructor(dependencies: {
-    queryHandlers: Array<QueryHandler>;
-    containerScopeCreator: ContainerScopeCreator;
-  }) {
+  constructor(dependencies: { containerScopeCreator: ContainerScopeCreator }) {
     this.containerScopeCreator = dependencies.containerScopeCreator;
-    this.queryHandlersMap = this.formatHandlers(dependencies.queryHandlers);
+    this.queryHandlersMap = new Map();
   }
 
-  private formatHandlers(
-    commandHandlers: Array<QueryHandler>
-  ): Map<QueryName, DependencyName> {
-    const handlersMap = new Map();
-
-    commandHandlers.forEach((commandHandler) => {
-      handlersMap.set(
+  private formatHandlers(queryHandlers: Array<QueryHandler>) {
+    queryHandlers.forEach((commandHandler) => {
+      this.queryHandlersMap.set(
         commandHandler.subscribedTo().QUERY_NAME,
         instanceToDependencyName(commandHandler)
       );
     });
-
-    return handlersMap;
   }
 
   async ask<R extends Response>(query: Query): Promise<R> {
@@ -58,5 +49,9 @@ export class InMemoryQueryBus implements QueryBus {
     });
 
     return (await handler.handle(query)) as Promise<R>;
+  }
+
+  addHandlers(queryHandlers: Array<QueryHandler>): void {
+    this.formatHandlers(queryHandlers);
   }
 }

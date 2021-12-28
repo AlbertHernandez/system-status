@@ -4,6 +4,8 @@ import { container } from "./dependency-injection/container";
 import { EventBus } from "../../../contexts/shared/domain/event-bus";
 import { DomainEventSubscriber } from "../../../contexts/shared/domain/domain-event-subscriber";
 import { DomainEvent } from "../../../contexts/shared/domain/domain-event";
+import { QueryBus } from "../../../contexts/shared/domain/query-bus";
+import { QueryHandler } from "../../../contexts/shared/domain/query-handler";
 
 export class BackofficeBackendApp {
   private server?: Server;
@@ -13,6 +15,7 @@ export class BackofficeBackendApp {
       port: config.get("server.port"),
     });
     await this.startEventBus();
+    await this.startQueryBus();
     return this.server.listen();
   }
 
@@ -41,5 +44,14 @@ export class BackofficeBackendApp {
     eventBus.addSubscribers(domainEventSubscribers);
 
     eventBus.start();
+  }
+
+  private async startQueryBus() {
+    const queryBus = container.resolve<QueryBus>("queryBus");
+
+    const queryHandlers =
+      container.resolve<Array<QueryHandler>>("queryHandlers");
+
+    queryBus.addHandlers(queryHandlers);
   }
 }

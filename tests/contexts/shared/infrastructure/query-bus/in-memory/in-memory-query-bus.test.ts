@@ -49,7 +49,6 @@ describe("InMemoryCommandBus", () => {
     const containerScopeCreator = ContainerScopeCreatorMother.create();
     const unhandledQuery = new UnhandledQuery();
     const queryBus = new InMemoryQueryBus({
-      queryHandlers: [],
       containerScopeCreator,
     });
 
@@ -81,8 +80,9 @@ describe("InMemoryCommandBus", () => {
 
     const queryBus = new InMemoryQueryBus({
       containerScopeCreator,
-      queryHandlers: [myCommandHandler],
     });
+
+    queryBus.addHandlers([myCommandHandler]);
 
     const response = await queryBus.ask(handledQuery);
     expect(response).toBeInstanceOf(MyQueryResponse);

@@ -2,6 +2,7 @@ import { IncidentReportRepository } from "../domain/incident-report-repository";
 import { IncidentReport } from "../domain/incident-report";
 import { IncidentReportId } from "../domain/incident-report-id";
 import { Nullable } from "../../../shared/domain/nullable";
+import { IncidentId } from "../../shared/domain/incident-id";
 
 export class InMemoryIncidentReportRepository
   implements IncidentReportRepository
@@ -30,5 +31,18 @@ export class InMemoryIncidentReportRepository
     return incidentReport
       ? IncidentReport.fromPrimitives(incidentReport)
       : null;
+  }
+
+  async searchByIncidentId(
+    incidentId: IncidentId
+  ): Promise<Array<IncidentReport>> {
+    return Object.values(this.incidentReports)
+      .filter(
+        (plainIncidentReport) =>
+          plainIncidentReport.incidentId === incidentId.toString()
+      )
+      .map((plainIncidentReport) =>
+        IncidentReport.fromPrimitives(plainIncidentReport)
+      );
   }
 }

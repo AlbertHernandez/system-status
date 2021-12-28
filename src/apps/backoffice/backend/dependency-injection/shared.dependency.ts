@@ -15,6 +15,7 @@ import { CreateIncidentReportCommandHandler } from "../../../../contexts/backoff
 import { FindIncidentReportByIdQueryHandler } from "../../../../contexts/backoffice/incident-reports/application/find-by-id/find-incident-report-by-id-query-handler";
 import { InMemoryAsyncEventBus } from "../../../../contexts/shared/infrastructure/event-bus/in-memory-async-event-bus";
 import { CloseIncidentOnReportResolved } from "../../../../contexts/backoffice/incidents/application/close/close-incident-on-report-resolved";
+import { FindIncidentReportByIncidentIdQueryHandler } from "../../../../contexts/backoffice/incident-reports/application/find-by-incident-id/find-incident-report-by-incident-id-query-handler";
 
 export const register = (container: Container) => {
   container.register({
@@ -36,6 +37,7 @@ export const register = (container: Container) => {
     queryHandlers: injectInstanceOfTheClasses([
       FindIncidentByIdQueryHandler,
       FindIncidentReportByIdQueryHandler,
+      FindIncidentReportByIncidentIdQueryHandler,
     ]),
     commandBus: DependencyInjection.toolBox
       .asClass(InMemoryCommandBus)

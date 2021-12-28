@@ -4,6 +4,7 @@ import { authorization } from "../middlewares/authorization.middleware";
 import { UserType } from "../models/api-user";
 import IncidentReportPutController from "../controllers/incident-report-put.controller";
 import IncidentReportByIdGetController from "../controllers/incident-report-by-id-get.controller";
+import IncidentReportByIncidentIdGetController from "../controllers/incident-report-by-incident-id-get.controller";
 
 export const register = (router: Router) => {
   router.put(
@@ -15,5 +16,10 @@ export const register = (router: Router) => {
     "/incidents/reports/:id",
     authorization({ allowedUserTypes: [UserType.Api] }),
     handleRequest(IncidentReportByIdGetController)
+  );
+  router.get(
+    "/incidents/:incidentId/reports",
+    authorization({ allowedUserTypes: [UserType.Api] }),
+    handleRequest(IncidentReportByIncidentIdGetController)
   );
 };
