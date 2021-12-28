@@ -1,5 +1,7 @@
 import { config } from "../../../contexts/backoffice/shared/infrastructure/config";
 import { Server } from "./server";
+import { container } from "./dependency-injection/container";
+import { EventBus } from "../../../contexts/shared/domain/event-bus";
 
 export class BackofficeBackendApp {
   private server?: Server;
@@ -8,6 +10,7 @@ export class BackofficeBackendApp {
     this.server = new Server({
       port: config.get("server.port"),
     });
+    await this.startEventBus();
     return this.server.listen();
   }
 
@@ -24,5 +27,10 @@ export class BackofficeBackendApp {
 
   get httpServer() {
     return this.server?.httpServer;
+  }
+
+  private async startEventBus() {
+    const eventBus = container.resolve<EventBus>("eventBus");
+    eventBus.start();
   }
 }

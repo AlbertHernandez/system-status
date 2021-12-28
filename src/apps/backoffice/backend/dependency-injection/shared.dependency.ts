@@ -13,6 +13,8 @@ import { InMemoryQueryBus } from "../../../../contexts/shared/infrastructure/que
 import { FindIncidentByIdQueryHandler } from "../../../../contexts/backoffice/incidents/application/find-by-id/find-incident-by-id-query-handler";
 import { CreateIncidentReportCommandHandler } from "../../../../contexts/backoffice/incident-reports/application/create/create-incident-report-command-handler";
 import { FindIncidentReportByIdQueryHandler } from "../../../../contexts/backoffice/incident-reports/application/find-by-id/find-incident-report-by-id-query-handler";
+import { InMemoryAsyncEventBus } from "../../../../contexts/shared/infrastructure/event-bus/in-memory-async-event-bus";
+import { CloseIncidentOnReportStatusResolved } from "../../../../contexts/backoffice/incidents/application/close/close-incident-on-report-status-resolved";
 
 export const register = (container: Container) => {
   container.register({
@@ -39,5 +41,11 @@ export const register = (container: Container) => {
       .asClass(InMemoryCommandBus)
       .singleton(),
     queryBus: DependencyInjection.toolBox.asClass(InMemoryQueryBus).singleton(),
+    eventBus: DependencyInjection.toolBox
+      .asClass(InMemoryAsyncEventBus)
+      .singleton(),
+    domainEventSubscribers: injectInstanceOfTheClasses([
+      CloseIncidentOnReportStatusResolved,
+    ]),
   });
 };

@@ -3,7 +3,7 @@ import { IncidentId } from "../../../shared/domain/incident-id";
 import { IncidentDescription } from "../../domain/incident-description";
 import { IncidentImpact } from "../../domain/incident-impact";
 import { Incident } from "../../domain/incident";
-import { Logger } from "../../../../shared/domain/logger";
+import { EventBus } from "../../../../shared/domain/event-bus";
 
 type Payload = {
   id: IncidentId;
@@ -13,18 +13,17 @@ type Payload = {
 
 export class IncidentCreator {
   private readonly repository;
-  private readonly logger;
+  private readonly eventBus;
 
   constructor(dependencies: {
     incidentRepository: IncidentRepository;
-    logger: Logger;
+    eventBus: EventBus;
   }) {
     this.repository = dependencies.incidentRepository;
-    this.logger = dependencies.logger;
+    this.eventBus = dependencies.eventBus;
   }
 
   async run(payload: Payload) {
-    this.logger.info("Hello!");
     const incident = Incident.open({
       id: payload.id,
       description: payload.description,
@@ -32,5 +31,6 @@ export class IncidentCreator {
     });
 
     await this.repository.save(incident);
+    await this.eventBus.publish(incident.pullDomainEvents());
   }
 }
