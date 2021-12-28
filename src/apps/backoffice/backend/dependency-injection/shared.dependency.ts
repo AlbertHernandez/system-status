@@ -12,6 +12,7 @@ import {
 import { InMemoryQueryBus } from "../../../../contexts/shared/infrastructure/query-bus/in-memory/in-memory-query-bus";
 import { FindIncidentByIdQueryHandler } from "../../../../contexts/backoffice/incidents/application/find-by-id/find-incident-by-id-query-handler";
 import { CreateIncidentReportCommandHandler } from "../../../../contexts/backoffice/incident-reports/application/create/create-incident-report-command-handler";
+import { FindIncidentReportByIdQueryHandler } from "../../../../contexts/backoffice/incident-reports/application/find-by-id/find-incident-report-by-id-query-handler";
 
 export const register = (container: Container) => {
   container.register({
@@ -30,7 +31,10 @@ export const register = (container: Container) => {
       CreateIncidentCommandHandler,
       CreateIncidentReportCommandHandler,
     ]),
-    queryHandlers: injectInstanceOfTheClasses([FindIncidentByIdQueryHandler]),
+    queryHandlers: injectInstanceOfTheClasses([
+      FindIncidentByIdQueryHandler,
+      FindIncidentReportByIdQueryHandler,
+    ]),
     commandBus: DependencyInjection.toolBox
       .asClass(InMemoryCommandBus)
       .singleton(),

@@ -19,10 +19,10 @@ export class IncidentReportCreator {
   private readonly queryBus;
 
   constructor(dependencies: {
-    incidentRepository: IncidentReportRepository;
+    incidentReportRepository: IncidentReportRepository;
     queryBus: QueryBus;
   }) {
-    this.repository = dependencies.incidentRepository;
+    this.repository = dependencies.incidentReportRepository;
     this.queryBus = dependencies.queryBus;
   }
 
