@@ -36,7 +36,7 @@ export class Incident extends AggregateRoot {
     this.creationDate = dependencies.creationDate;
     this.closedDate = dependencies.closedDate || null;
     this.reportsCounter =
-      dependencies.reportsCounter || new IncidentReportsCounter(0);
+      dependencies.reportsCounter || IncidentReportsCounter.initialize();
   }
 
   close() {
