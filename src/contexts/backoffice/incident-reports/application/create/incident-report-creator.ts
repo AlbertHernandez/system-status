@@ -1,11 +1,11 @@
-import { IncidentReportRepository } from "../domain/incident-report-repository";
-import { IncidentId } from "../../shared/domain/incident-id";
-import { IncidentReportId } from "../domain/incident-report-id";
-import { IncidentReportMessage } from "../domain/incident-report-message";
-import { IncidentReportStatus } from "../domain/incident-report-status";
-import { IncidentReport } from "../domain/incident-report";
-import { QueryBus } from "../../../shared/domain/query-bus";
-import { FindIncidentByIdQuery } from "../../incidents/application/find-by-id/find-incident-by-id-query";
+import { IncidentReportRepository } from "../../domain/incident-report-repository";
+import { IncidentId } from "../../../shared/domain/incident-id";
+import { IncidentReportId } from "../../domain/incident-report-id";
+import { IncidentReportMessage } from "../../domain/incident-report-message";
+import { IncidentReportStatus } from "../../domain/incident-report-status";
+import { IncidentReport } from "../../domain/incident-report";
+import { QueryBus } from "../../../../shared/domain/query-bus";
+import { FindIncidentByIdQuery } from "../../../incidents/application/find-by-id/find-incident-by-id-query";
 
 type Payload = {
   incidentId: IncidentId;

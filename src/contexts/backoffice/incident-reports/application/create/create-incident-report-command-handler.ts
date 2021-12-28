@@ -1,10 +1,10 @@
-import { CommandHandler } from "../../../shared/domain/command-handler";
-import { IncidentId } from "../../shared/domain/incident-id";
+import { CommandHandler } from "../../../../shared/domain/command-handler";
+import { IncidentId } from "../../../shared/domain/incident-id";
 import { CreateIncidentReportCommand } from "./create-incident-report-command";
 import { IncidentReportCreator } from "./incident-report-creator";
-import { IncidentReportId } from "../domain/incident-report-id";
-import { IncidentReportMessage } from "../domain/incident-report-message";
-import { IncidentReportStatus } from "../domain/incident-report-status";
+import { IncidentReportId } from "../../domain/incident-report-id";
+import { IncidentReportMessage } from "../../domain/incident-report-message";
+import { IncidentReportStatus } from "../../domain/incident-report-status";
 
 export class CreateIncidentReportCommandHandler
   implements CommandHandler<CreateIncidentReportCommand>

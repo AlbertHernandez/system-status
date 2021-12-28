@@ -5,8 +5,8 @@ import { SchemasConfig } from "../middlewares/schema-validation.middleware";
 import { uuid } from "../helpers/uuid";
 import { HttpResponse } from "../models/http-response";
 import { Status } from "../../../../contexts/backoffice/incident-reports/domain/incident-report-status";
-import { CreateIncidentReportCommand } from "../../../../contexts/backoffice/incident-reports/application/create-incident-report-command";
-import { IncidentNotFoundError } from "../../../../contexts/backoffice/incidents/domain/incident-not-found-error";
+import { CreateIncidentReportCommand } from "../../../../contexts/backoffice/incident-reports/application/create/create-incident-report-command";
+import { IncidentNotFoundError } from "../../../../contexts/backoffice/shared/domain/incident-not-found-error";
 import { NotFoundError } from "../errors/not-found-error";
 
 export default class IncidentReportPutController extends Controller {

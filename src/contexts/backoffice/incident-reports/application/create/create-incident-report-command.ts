@@ -1,4 +1,4 @@
-import { Command } from "../../../shared/domain/command";
+import { Command } from "../../../../shared/domain/command";
 
 export class CreateIncidentReportCommand extends Command {
   static readonly COMMAND_NAME = "incidentReport.create";

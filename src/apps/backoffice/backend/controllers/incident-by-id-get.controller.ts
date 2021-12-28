@@ -6,7 +6,7 @@ import { uuid } from "../helpers/uuid";
 import { HttpResponse } from "../models/http-response";
 import { FindIncidentByIdQuery } from "../../../../contexts/backoffice/incidents/application/find-by-id/find-incident-by-id-query";
 import { FindIncidentByIdResponse } from "../../../../contexts/backoffice/incidents/application/find-by-id/find-incident-by-id-response";
-import { IncidentNotFoundError } from "../../../../contexts/backoffice/incidents/domain/incident-not-found-error";
+import { IncidentNotFoundError } from "../../../../contexts/backoffice/shared/domain/incident-not-found-error";
 import { NotFoundError } from "../errors/not-found-error";
 
 export default class IncidentByIdGetController extends Controller {

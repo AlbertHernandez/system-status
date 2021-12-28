@@ -1,7 +1,7 @@
 import { IncidentRepository } from "../../domain/incident-repository";
 import { Incident } from "../../domain/incident";
 import { IncidentId } from "../../../shared/domain/incident-id";
-import { IncidentNotFoundError } from "../../domain/incident-not-found-error";
+import { IncidentNotFoundError } from "../../../shared/domain/incident-not-found-error";
 
 export class IncidentByIdFinder {
   private readonly repository;
