@@ -49,8 +49,9 @@ describe("InMemoryAsyncEventBus", () => {
       DomainEventSubscriberDummy,
     ]);
 
-    const containerScopeCreator =
-      ContainerScopeCreatorMother.createWithContainer(container);
+    const containerScopeCreator = ContainerScopeCreatorMother.create({
+      container,
+    });
 
     const eventBus = new InMemoryAsyncEventBus({
       containerScopeCreator,

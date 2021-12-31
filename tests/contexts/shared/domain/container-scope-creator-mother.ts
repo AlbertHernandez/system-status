@@ -5,13 +5,11 @@ import {
 import { ContainerMother } from "./container-mother";
 
 export class ContainerScopeCreatorMother {
-  static create(): ContainerScopeCreator {
-    return new ContainerScopeCreator({
-      container: ContainerMother.create(),
-    });
-  }
-
-  static createWithContainer(container: Container): ContainerScopeCreator {
+  static create({
+    container = ContainerMother.create(),
+  }: {
+    container?: Container;
+  } = {}): ContainerScopeCreator {
     return new ContainerScopeCreator({
       container,
     });

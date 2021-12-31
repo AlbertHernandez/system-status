@@ -68,8 +68,9 @@ describe("InMemoryCommandBus", () => {
       MyCommandHandler,
     ]);
 
-    const containerScopeCreator =
-      ContainerScopeCreatorMother.createWithContainer(container);
+    const containerScopeCreator = ContainerScopeCreatorMother.create({
+      container,
+    });
     const handledCommand = new HandledCommand();
     const myCommandHandler = new MyCommandHandler();
 

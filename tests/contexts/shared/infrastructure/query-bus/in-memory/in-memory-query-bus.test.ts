@@ -73,8 +73,9 @@ describe("InMemoryCommandBus", () => {
       MyQueryHandler,
     ]);
 
-    const containerScopeCreator =
-      ContainerScopeCreatorMother.createWithContainer(container);
+    const containerScopeCreator = ContainerScopeCreatorMother.create({
+      container,
+    });
     const handledQuery = new HandledQuery();
     const myCommandHandler = new MyQueryHandler();
 
