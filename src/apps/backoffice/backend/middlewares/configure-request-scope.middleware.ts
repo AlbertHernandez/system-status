@@ -1,4 +1,4 @@
-import Koa from "koa";
+import { Middleware } from "koa";
 import {
   DependencyInjection,
   ContainerScopeCreator,
@@ -6,10 +6,7 @@ import {
 import { container } from "../dependency-injection/container";
 import { RequestContext } from "../models/request-context";
 
-export const configureRequestScope = async (
-  ctx: Koa.Context,
-  next: Koa.Next
-) => {
+export const configureRequestScope: Middleware = async (ctx, next) => {
   const requestContext = new RequestContext({
     requestId: ctx.state.id,
   });

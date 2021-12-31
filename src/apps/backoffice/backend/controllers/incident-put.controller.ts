@@ -1,6 +1,6 @@
 import { Controller } from "./controller";
 import Joi from "joi";
-import Koa from "koa";
+import { Context } from "koa";
 import { SchemasConfig } from "../middlewares/schema-validation.middleware";
 import { CreateIncidentCommand } from "../../../../contexts/backoffice/incidents/application/create/create-incident-command";
 import { Impact } from "../../../../contexts/backoffice/incidents/domain/incident-impact";
@@ -22,7 +22,7 @@ export default class IncidentPutController extends Controller {
     };
   }
 
-  async run(ctx: Koa.Context) {
+  async run(ctx: Context) {
     const { description, impact } = ctx.request.body as {
       description: string;
       impact: string;

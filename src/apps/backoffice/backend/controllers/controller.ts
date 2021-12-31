@@ -1,4 +1,4 @@
-import Koa from "koa";
+import { Context } from "koa";
 import { HttpResponse } from "../models/http-response";
 import { SchemasConfig } from "../middlewares/schema-validation.middleware";
 import { CommandBus } from "../../../../contexts/shared/domain/command-bus";
@@ -39,7 +39,7 @@ export abstract class Controller {
     return this.requestContext.requestId;
   }
 
-  abstract run(ctx: Koa.Context): Promise<HttpResponse>;
+  abstract run(ctx: Context): Promise<HttpResponse>;
 
   schema?(): SchemasConfig;
 }

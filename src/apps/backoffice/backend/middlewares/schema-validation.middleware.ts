@@ -1,4 +1,4 @@
-import * as Koa from "koa";
+import { Context } from "koa";
 import Joi from "joi";
 import { BadRequestError } from "../errors/bad-request-error";
 
@@ -16,10 +16,7 @@ export interface SchemasConfig {
   params?: Joi.ObjectSchema;
 }
 
-function getRequestPart(
-  ctx: Koa.ParameterizedContext,
-  requestPart: RequestValues
-) {
+function getRequestPart(ctx: Context, requestPart: RequestValues) {
   if (requestPart === RequestValues.Params) {
     return ctx.params;
   }
@@ -28,7 +25,7 @@ function getRequestPart(
 }
 
 function setRequestPart(
-  ctx: Koa.ParameterizedContext,
+  ctx: Context,
   requestPart: RequestValues,
   value: unknown
 ): void {
@@ -39,10 +36,7 @@ function setRequestPart(
   }
 }
 
-export const validateSchema = async (
-  schemas: SchemasConfig,
-  ctx: Koa.Context
-) => {
+export const validateSchema = async (schemas: SchemasConfig, ctx: Context) => {
   for (const [requestPart, schema] of Object.entries(schemas)) {
     const requestPartType = requestPart as RequestValues;
     if (schema != null) {

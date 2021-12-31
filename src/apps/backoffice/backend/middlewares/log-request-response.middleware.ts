@@ -1,7 +1,7 @@
-import Koa from "koa";
+import { Middleware } from "koa";
 import { Logger } from "../../../../contexts/shared/domain/logger";
 
-export const logRequestResponse = async (ctx: Koa.Context, next: Koa.Next) => {
+export const logRequestResponse: Middleware = async (ctx, next) => {
   const logger: Logger = ctx.state.container.resolve("logger");
   const commonHttpRequest = {
     requestMethod: ctx.request.method,

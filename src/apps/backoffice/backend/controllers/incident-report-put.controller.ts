@@ -1,6 +1,6 @@
 import { Controller } from "./controller";
 import Joi from "joi";
-import Koa from "koa";
+import { Context } from "koa";
 import { SchemasConfig } from "../middlewares/schema-validation.middleware";
 import { uuid } from "../helpers/uuid";
 import { HttpResponse } from "../models/http-response";
@@ -25,7 +25,7 @@ export default class IncidentReportPutController extends Controller {
     };
   }
 
-  async run(ctx: Koa.Context) {
+  async run(ctx: Context) {
     const { message, status } = ctx.request.body as {
       message: string;
       status: string;

@@ -1,12 +1,12 @@
 import httpStatus from "http-status";
-import Koa from "koa";
+import { Middleware } from "koa";
 import { BaseError } from "../../../../contexts/shared/domain/errors/base-error";
 import { ErrorHandler } from "../../../../contexts/shared/domain/error-handler";
 import { HttpError } from "../errors/http-error";
 
 const INTERNAL_SERVER_ERROR = "Internal Server Error";
 
-export const errorHandler = async (ctx: Koa.Context, next: Koa.Next) => {
+export const errorHandler: Middleware = async (ctx, next) => {
   try {
     await next().catch(async (error: Error | BaseError) => {
       const errorHandler: ErrorHandler =
