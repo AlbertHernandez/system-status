@@ -69,7 +69,7 @@ describe("InMemoryCommandBus", () => {
   });
 
   it("accepts a command with handler", async () => {
-    const container = ContainerMother.createRegisteringClasses([
+    const container = ContainerMother.withBasicInfraAndClasses([
       MyQueryHandler,
     ]);
 

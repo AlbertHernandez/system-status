@@ -45,7 +45,7 @@ describe("InMemoryAsyncEventBus", () => {
       }
     }
 
-    const container = ContainerMother.createRegisteringClasses([
+    const container = ContainerMother.withBasicInfraAndClasses([
       DomainEventSubscriberDummy,
     ]);
 

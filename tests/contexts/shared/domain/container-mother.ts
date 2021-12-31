@@ -26,7 +26,7 @@ export class ContainerMother {
     return container;
   }
 
-  static createRegisteringClasses(
+  static withBasicInfraAndClasses(
     classesToRegister: Class<unknown>[]
   ): Container {
     const container = ContainerMother.withBasicInfra();
