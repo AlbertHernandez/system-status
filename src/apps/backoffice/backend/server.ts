@@ -6,7 +6,6 @@ import bodyParser from "koa-bodyparser";
 import helmet from "koa-helmet";
 import responseTime from "koa-response-time";
 import { Logger } from "../../../contexts/shared/domain/logger";
-import Router from "koa-router";
 import { registerRoutes } from "./routes";
 import { configureRequestScope } from "./middlewares/configure-request-scope.middleware";
 import { errorHandler } from "./middlewares/error-handler.middleware";
@@ -15,6 +14,7 @@ import { config } from "../../../contexts/backoffice/shared/infrastructure/confi
 import { authentication } from "./middlewares/authentication.middleware";
 import { getApiUsers } from "./get-api-users";
 import { container } from "./dependency-injection/container";
+import { getApiV1Router, getHealthRouter } from "./routers";
 
 export class Server {
   private koa: Koa;
@@ -28,10 +28,11 @@ export class Server {
     this.koa = new Koa();
 
     this.configureRoutesWithoutMiddlewares();
+    this.configureApiV1Routes();
+  }
 
-    const router = new Router({
-      prefix: "/api/v1",
-    });
+  private configureApiV1Routes() {
+    const router = getApiV1Router();
 
     registerRoutes(router);
 
@@ -56,9 +57,7 @@ export class Server {
   }
 
   private configureHealthRouter() {
-    const healthRouter = new Router({
-      prefix: "/health",
-    });
+    const healthRouter = getHealthRouter();
 
     healthRouter.get("/", (ctx) => {
       ctx.status = httpStatus.OK;
