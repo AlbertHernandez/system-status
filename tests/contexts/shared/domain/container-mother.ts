@@ -16,7 +16,7 @@ export class ContainerMother {
     const container = ContainerMother.create();
 
     const logger = LoggerMother.create();
-    const errorHandler = ErrorHandlerMother.withLogger(logger);
+    const errorHandler = ErrorHandlerMother.create({ logger });
 
     container.register({
       logger: DependencyInjection.toolBox.asValue(logger),
